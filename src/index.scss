@@ -4,31 +4,25 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   overflow-x: hidden;
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-
 *::-webkit-scrollbar {
   display: none;
 }
-
 .App {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
 }
-
+.dropdown {
+  // background-color: #fff !important;
+  // transition: opacity 500ms 500ms, height 500ms;
+}
 .dropdown-open {
-  -webkit-transition: opacity 400ms 400ms, height 400ms;
   transition: opacity 400ms 400ms, height 400ms;
 }
-
 .dropdown-close {
-  -webkit-transition: opacity 100ms, height 300ms 50ms;
   transition: opacity 100ms, height 300ms 50ms;
 }
-/*# sourceMappingURL=index.css.map */
