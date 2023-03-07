@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/flightfootprint-webapp/static/css/main.3f99e9ab.css",
+    "main.js": "/flightfootprint-webapp/static/js/main.ea9e749f.js",
+    "static/media/loading.gif": "/flightfootprint-webapp/static/media/loading.0e7f361ed264b5a8a658.gif",
+    "index.html": "/flightfootprint-webapp/index.html",
+    "main.3f99e9ab.css.map": "/flightfootprint-webapp/static/css/main.3f99e9ab.css.map",
+    "main.ea9e749f.js.map": "/flightfootprint-webapp/static/js/main.ea9e749f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3f99e9ab.css",
+    "static/js/main.ea9e749f.js"
+  ]
+}
