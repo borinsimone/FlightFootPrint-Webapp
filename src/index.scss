@@ -6,8 +6,8 @@
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 *::-webkit-scrollbar {
   display: none;
@@ -16,10 +16,7 @@
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
 }
-.dropdown {
-  // background-color: #fff !important;
-  // transition: opacity 500ms 500ms, height 500ms;
-}
+
 .dropdown-open {
   transition: opacity 400ms 400ms, height 400ms;
 }

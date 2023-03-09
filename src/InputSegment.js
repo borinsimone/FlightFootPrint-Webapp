@@ -12,6 +12,8 @@ function InputSegment({
   removeSegment,
   departureCode,
   arrivalCode,
+  cabinClass,
+  passengers,
   legList,
   i,
 }) {
@@ -104,6 +106,7 @@ function InputSegment({
             list="class-list"
             id="cabin-class"
             placeholder="economy"
+            value={cabinClass}
           />
           <datalist id="class-list">
             <option value="economy"></option>
@@ -115,6 +118,7 @@ function InputSegment({
           <span>passengers:</span>
           <input
             defaultValue={1}
+            value={passengers}
             onChange={handleChangePassengers}
             className=" w-[20%] lg:w-[25%] text-center text-black"
             type="number"

@@ -9,7 +9,7 @@ function FootprintCalculator() {
   const [arrivalCode, setArrivalCode] = useState("");
   const [passengers, setPassengers] = useState(1);
   const [totalPassengers, setTotalPassengers] = useState();
-  const [cabinClass, setCabinClass] = useState("economy");
+  const [cabinClass, setCabinClass] = useState("");
   const [legs, setLegs] = useState([]);
   const [emissionData, setEmissionData] = useState();
   const [legList, setLegList] = useState([
@@ -22,6 +22,8 @@ function FootprintCalculator() {
   useEffect(() => {
     setArrivalCode("");
     setDepartureCode("");
+    setPassengers(1);
+    setCabinClass("");
     let passengerNumber = legList.map(
       (flightPassenger, i) =>
         parseInt(legList[i].passengers)
@@ -78,8 +80,6 @@ function FootprintCalculator() {
   // SEGMENT MANAGEMENT
   const addSegment = () => {
     if (legList.length < 4) {
-      setDepartureCode("");
-      setArrivalCode("");
       setLegList([
         ...legList,
         {
@@ -177,6 +177,8 @@ function FootprintCalculator() {
             legList={legList}
             departureCode={segment.departureCode}
             arrivalCode={segment.arrivalCode}
+            cabinClass={segment.cabinClass}
+            passengers={segment.passengers}
             addSegment={addSegment}
             removeSegment={removeSegment}
             i={i}
@@ -191,6 +193,8 @@ function FootprintCalculator() {
           onClick={() => {
             console.log("reset list");
             setLegs([]);
+            setPassengers(1);
+            setTotalPassengers(passengers);
             setLegList([
               {
                 departureCode,
@@ -309,7 +313,7 @@ function FootprintCalculator() {
                   >
                     <div className="left w-[50%]  ">
                       <div className="total flex items-center gap-1">
-                        <span className="">total {i}:</span>
+                        <span className="">total:</span>
                         {emissionData.legs[i].co2e.toFixed(
                           2
                         )}
