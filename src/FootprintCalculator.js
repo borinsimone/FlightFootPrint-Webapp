@@ -49,6 +49,7 @@ function FootprintCalculator() {
   const getEmission = () => {
     setFlgihtExist(false);
     setIsLoading(true);
+
     axios
       .post(
         "https://beta3.api.climatiq.io/travel/flights",
@@ -220,7 +221,7 @@ function FootprintCalculator() {
         <button
           className="plus-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative  lg:top-0   "
           onClick={() => {
-            console.log("add");
+            console.log("add input");
             addSegment();
             setEmissionData(null);
           }}
@@ -229,12 +230,12 @@ function FootprintCalculator() {
         </button>
       </div>
       {/* OUTPUT */}
-      <div className="output relative flex flex-col gap-4 md:gap-6 h-[40%] w-[90%] capitalize lg:flex-row ">
+      <div className="output relative flex flex-col gap-4 md:gap-6 h-[40%] w-[90%] capitalize lg:flex-row pt-10  ">
         {emissionData &&
         emissionData.legs.length === 1 &&
         flgihtExist ? (
           <div
-            className={`recap w-full bg-[#F8F4EA] rounded-lg   flex flex-col justify-center items-center capitalize relative 
+            className={`recap w-full bg-[#F8F4EA] rounded-lg flex flex-col justify-center items-center capitalize relative 
              lg:h-[200px]    `}
           >
             <div className="recap-logo absolute left-3 top-3">
@@ -264,14 +265,14 @@ function FootprintCalculator() {
               : "lg:h-[200px] lg:justify-evenly"
           }  `}
         >
-          <div className="total flex items-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 ">
+          <div className="total flex items-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
             <span>total C02:</span>
             {emissionData
               ? emissionData.co2e.toFixed(2)
               : ""}
             {emissionData ? emissionData.co2e_unit : ""}
           </div>
-          <div className="individual  flex items-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 ">
+          <div className="individual  flex items-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
             <span>individual C02: </span>
             {emissionData
               ? (
@@ -296,22 +297,22 @@ function FootprintCalculator() {
                     );
                   }}
                 >
-                  <div className="emission-header md:h-12 p-2 w-full flex items-center justify-between">
+                  <div className="emission-header md:h-12 p-2 md:p-3 w-full flex items-center justify-between">
                     <span className="">
-                      recap flight {i + 1}
+                      recap. flight {i + 1}
                     </span>
                     {`${legs[i].from} - ${legs[i].to}`}
                   </div>
 
                   <div
-                    className={`dropdown emission flex  overflow-hidden px-2  w-full 
+                    className={`dropdown emission flex  overflow-hidden px-2 md:px-3  w-full 
             ${
               isDropdownOpen[i]
                 ? " opacity-1 h-[4em] dropdown-open "
                 : "opacity-0 h-0 dropdown-close"
             }`}
                   >
-                    <div className="left w-[50%]  ">
+                    <div className="left w-[50%] flex flex-col gap-2 ">
                       <div className="total flex items-center gap-1">
                         <span className="">total:</span>
                         {emissionData.legs[i].co2e.toFixed(
@@ -324,9 +325,12 @@ function FootprintCalculator() {
                         {(
                           emissionData.legs[i].co2e / 7
                         ).toFixed(2)}
+                        {emissionData
+                          ? emissionData.co2e_unit
+                          : ""}
                       </div>
                     </div>
-                    <div className="right w-[50%] flex flex-col items-end ">
+                    <div className="right w-[50%] flex flex-col gap-2 items-end ">
                       <div className="drop-class flex gap-1">
                         <span>class:</span>
                         {`${legs[i].class}`}
