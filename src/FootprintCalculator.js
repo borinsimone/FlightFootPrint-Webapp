@@ -102,8 +102,7 @@ function FootprintCalculator() {
     }
   };
 
-  const [parent, enableAnimations] =
-    useAutoAnimate(/* optional config */);
+  const [parent, enableAnimations] = useAutoAnimate();
 
   // UI STATE
   const [isDropdownOpen, setIsDropdownOpen] = useState(
@@ -162,11 +161,10 @@ function FootprintCalculator() {
                 : "h-[20%]"
             } 
          w-[90%]  gap-2 duration-700
-        flex flex-col  items-center justify-center rounded overflow-hidden lg:p-2  ${
-          legList.length > 1
-            ? "lg:grid lg:place-items-center lg:grid-cols-2"
-            : ""
-        }   `}
+        flex flex-col  items-center justify-center rounded overflow-hidden lg:p-2 
+        lg:grid lg:place-items-center 
+        ${legList.length > 1 ? "lg:grid-cols-2" : ""}
+        `}
       >
         {legList.map((segment, i) => (
           <InputSegment
