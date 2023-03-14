@@ -41,7 +41,7 @@ function InputSegment({
     <div
       className={`segment  capitalize duration-500 p-2 h-23 md:h-28 w-full flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
     >
-      <div className="add-icon text-[20px] text-black z-10 absolute bottom-[calc(50%-.8rem)] md:bottom-[calc(50%-1.2rem)] lg:bottom-[calc(70%-1.2rem)] right-[10px]">
+      <div className="add-icon cursor-pointer text-[20px] text-black z-10 absolute bottom-[calc(50%-.8rem)] md:bottom-[calc(50%-1.2rem)] lg:bottom-[calc(70%-1.2rem)] right-[10px]">
         <MdDeleteOutline
           className="text-white text-[1.6rem] md:text-[2.4rem]"
           onClick={() => {
@@ -102,8 +102,6 @@ function InputSegment({
             className=" text-black  capitalize w-[60%] lg:w-[45%] text-center"
             list="class-list"
             id="cabin-class"
-            // placeholder="economy"
-            // defaultValue={"economy"}
             value={cabinClass}
           />
           <datalist id="class-list">
@@ -115,7 +113,6 @@ function InputSegment({
         <div className="passengers w-[50%] flex gap-2 lg:gap-4">
           <span>passengers:</span>
           <input
-            // defaultValue={1}
             value={passengers}
             onChange={handleChangePassengers}
             className=" w-[20%] lg:w-[25%] text-center text-black"

@@ -230,7 +230,7 @@ function FootprintCalculator() {
         </button>
       </div>
       {/* OUTPUT */}
-      <div className="output relative flex flex-col gap-4 md:gap-6 h-[40%] w-[90%] capitalize lg:flex-row pt-10  ">
+      <div className="output relative flex flex-col gap-4 md:gap-6 h-[50%] w-[90%] capitalize lg:flex-row pt-10 ">
         {emissionData &&
         emissionData.legs.length === 1 &&
         flgihtExist ? (
