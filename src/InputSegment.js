@@ -1,7 +1,5 @@
-import React, { useRef } from "react";
-
+import React from "react";
 import airportCodes from "./source/airports.json";
-
 import { MdDeleteOutline } from "react-icons/md";
 
 function InputSegment({
@@ -18,35 +16,31 @@ function InputSegment({
   i,
 }) {
   const handleChangeFrom = (event) => {
-    console.log(event.target.value);
     setDepartureCode(event.target.value);
     legList[i].departureCode = event.target.value;
   };
   const handleChangeTo = (event) => {
-    console.log(event.target.value);
     setArrivalCode(event.target.value);
     legList[i].arrivalCode = event.target.value;
   };
   const handleChangeClass = (event) => {
-    console.log(event.target.value);
     setCabinClass(event.target.value);
     legList[i].cabinClass = event.target.value;
   };
   const handleChangePassengers = (event) => {
-    console.log(event.target.value);
     setPassengers(event.target.value);
     legList[i].passengers = event.target.value;
   };
   return (
     <div
-      className={`segment  capitalize duration-500 p-2 h-23 md:h-28 w-full flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
+      className={`segment  capitalize duration-700 p-2 h-23 md:h-28 w-full flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
     >
       <div className="add-icon cursor-pointer text-[20px] text-black z-10 absolute bottom-[calc(50%-.8rem)] md:bottom-[calc(50%-1.2rem)] lg:bottom-[calc(70%-1.2rem)] right-[10px]">
         <MdDeleteOutline
           className="text-white text-[1.6rem] md:text-[2.4rem]"
           onClick={() => {
             removeSegment(i);
-            console.log("remove input");
+            console.log("remove input range");
           }}
         />
       </div>
