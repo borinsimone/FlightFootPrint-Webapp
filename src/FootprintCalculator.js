@@ -134,9 +134,9 @@ function FootprintCalculator() {
       <div
         className={`error duration-300 ${
           error ? "opacity-1 z-10" : "opacity-0 -z-10"
-        } absolute bg-slate-600 h-[100px] md:h-[200px] w-[90%] top-[30%] flex items-center justify-center  rounded-xl p-2 md:p-3`}
+        } absolute bg-slate-600 h-[100px] md:h-[200px] w-[90%] lg:w-[60%] top-[30%] flex items-center justify-center  rounded-xl p-2 md:p-3`}
       >
-        <div className="border-2 border-[red] h-full w-full flex flex-col items-center justify-center gap-3 md:gap-7 rounded-xl py-3">
+        <div className="border-4 border-[red]/70 h-full w-full flex flex-col items-center justify-center gap-3 md:gap-7 rounded-xl py-3">
           <div className="error-text text-white">
             Seems that your flight doesn't exist
           </div>
@@ -227,7 +227,7 @@ function FootprintCalculator() {
         </button>
       </div>
       {/* OUTPUT */}
-      <div className="output relative flex flex-col gap-4 md:gap-6 h-[50%] w-[90%] lg:w-[70%] capitalize lg:flex-row pt-10 ">
+      <div className="output  relative flex flex-col gap-4 md:gap-6 h-[50%] w-[90%] lg:w-[70%] capitalize lg:flex-row pt-10 ">
         <div
           className={`general-data   flex flex-col gap-4 lg:gap-6 w-full lg:w-[50%] duration-500 ${
             emissionData ? "opacity-1" : "opacity-0"
