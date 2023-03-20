@@ -3,6 +3,8 @@ import axios from "axios";
 import InputSegment from "./InputSegment";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import loading from "./assets/loading.gif";
+import Output from "./Output";
+
 function FootprintCalculator() {
   const token = "PFZSMPX3TX4GE5GRVF585YC2HREC";
   const [departureCode, setDepartureCode] = useState("");
@@ -80,7 +82,7 @@ function FootprintCalculator() {
   };
   // SEGMENT MANAGEMENT
   const addSegment = () => {
-    if (legList.length < 4) {
+    if (legList.length < 6) {
       setLegList([
         ...legList,
         {
@@ -114,8 +116,9 @@ function FootprintCalculator() {
 
   return (
     <div
-      className="bg-[#E1D7C6] relative duration-300 h-full w-full md:w-[90%] flex flex-col items-center justify-center gap-4
-      md:gap-6 text-black "
+      // className="bg-[#E1D7C6] relative duration-300 h-full w-full md:w-[90%] flex flex-col items-center justify-center gap-4
+      // md:gap-6 text-black "
+      className="relative bg-[#E1D7C6] h-full w-full  flex flex-col justify-center items-center"
     >
       {/* LOADING */}
       <div
@@ -129,7 +132,6 @@ function FootprintCalculator() {
           alt="Loading..."
         />
       </div>
-
       {/* ERROR */}
       <div
         className={`error duration-300 ${
@@ -150,21 +152,23 @@ function FootprintCalculator() {
           </button>
         </div>
       </div>
-
       {/* INPUT */}
       <div
         ref={parent}
-        className={`input-data relative 
-            ${
-              legList.length > 1
-                ? "h-[50%] lg:h-[40%]"
-                : "h-[20%]"
-            } 
-         w-[90%]  gap-2 duration-700
-        flex flex-col  items-center justify-center rounded lg:p-2 
-        lg:grid lg:place-items-center 
-        ${legList.length > 1 ? "lg:grid-cols-2" : ""}
-        `}
+        // className={`input-data relative
+        //     ${
+        //       legList.length > 1
+        //         ? "h-[50%] lg:h-[40%]"
+        //         : "h-[20%]"
+        //     }
+        //  w-[90%]  gap-2 duration-700
+        // flex flex-col  items-center justify-center rounded lg:p-2
+        // lg:grid lg:place-items-center
+        // ${legList.length > 1 ? "lg:grid-cols-2" : ""}
+        // `}
+        className={` mt-4 ${
+          legList.length > 1 ? "h-[70%]" : "h-44"
+        }  w-[90%] flex flex-col justify-evenly duration-500`}
       >
         {legList.map((segment, i) => (
           <InputSegment
@@ -183,9 +187,11 @@ function FootprintCalculator() {
           />
         ))}
       </div>
-
       {/* BUTTONS */}
-      <div className="buttons flex w-[90%]  items-center justify-between lg:w-[50%]">
+      <div
+        // className="buttons flex w-[90%]  items-center justify-between lg:w-[50%]"
+        className={`flex items-center justify-between w-[90%]  `}
+      >
         <button
           className="reset-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative   lg:top-0 "
           onClick={() => {
@@ -227,7 +233,16 @@ function FootprintCalculator() {
         </button>
       </div>
       {/* OUTPUT */}
-      <div className="output relative flex flex-col justify-start gap-4 md:gap-6 h-[50%] w-[90%] lg:w-[70%] capitalize lg:flex-row  ">
+      <Output
+        emissionData={emissionData}
+        setEmissionData={setEmissionData}
+        legs={legs}
+        flgihtExist={flgihtExist}
+        isDropdownOpen={isDropdownOpen}
+        setIsDropdownOpen={setIsDropdownOpen}
+        totalPassengers={totalPassengers}
+      />
+      {/* <div className="output relative flex flex-col justify-start gap-4 md:gap-6 h-[50%] w-[90%] lg:w-[70%] capitalize lg:flex-row  ">
         <div
           className={`general-data   flex flex-col gap-4 lg:gap-6 w-full lg:w-[50%] duration-500 ${
             emissionData ? "opacity-1" : "opacity-0"
@@ -354,7 +369,7 @@ function FootprintCalculator() {
               ))
             : ""}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
