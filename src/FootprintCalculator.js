@@ -157,11 +157,11 @@ function FootprintCalculator() {
         className={`input-data relative 
             ${
               legList.length > 1
-                ? "h-[40%] lg:h-[40%]"
+                ? "h-[50%] lg:h-[40%]"
                 : "h-[20%]"
             } 
          w-[90%]  gap-2 duration-700
-        flex flex-col  items-center justify-center rounded overflow-hidden lg:p-2 
+        flex flex-col  items-center justify-center rounded lg:p-2 
         lg:grid lg:place-items-center 
         ${legList.length > 1 ? "lg:grid-cols-2" : ""}
         `}
@@ -227,7 +227,7 @@ function FootprintCalculator() {
         </button>
       </div>
       {/* OUTPUT */}
-      <div className="output  relative flex flex-col gap-4 md:gap-6 h-[50%] w-[90%] lg:w-[70%] capitalize lg:flex-row pt-10 ">
+      <div className="output relative flex flex-col justify-start gap-4 md:gap-6 h-[50%] w-[90%] lg:w-[70%] capitalize lg:flex-row  ">
         <div
           className={`general-data   flex flex-col gap-4 lg:gap-6 w-full lg:w-[50%] duration-500 ${
             emissionData ? "opacity-1" : "opacity-0"

@@ -33,7 +33,7 @@ function InputSegment({
   };
   return (
     <div
-      className={`segment  capitalize duration-700 p-2 h-23 md:h-28 w-full flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
+      className={`segment  capitalize duration-700 p-2 h-22 md:h-28 w-full flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
     >
       <div className="add-icon cursor-pointer text-[20px] text-black z-10 absolute bottom-[calc(50%-.8rem)] md:bottom-[calc(50%-1.2rem)] lg:bottom-[calc(70%-1.2rem)] right-[10px]">
         <MdDeleteOutline
