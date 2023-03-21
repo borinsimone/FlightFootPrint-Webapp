@@ -115,11 +115,7 @@ function FootprintCalculator() {
   }, [legList]);
 
   return (
-    <div
-      // className="bg-[#E1D7C6] relative duration-300 h-full w-full md:w-[90%] flex flex-col items-center justify-center gap-4
-      // md:gap-6 text-black "
-      className="relative bg-[#E1D7C6] h-full w-full  flex flex-col justify-center items-center"
-    >
+    <div className="relative bg-[#E1D7C6] h-full w-full  flex flex-col justify-center items-center">
       {/* LOADING */}
       <div
         className={`loading-panel ${
@@ -155,20 +151,17 @@ function FootprintCalculator() {
       {/* INPUT */}
       <div
         ref={parent}
-        // className={`input-data relative
-        //     ${
-        //       legList.length > 1
-        //         ? "h-[50%] lg:h-[40%]"
-        //         : "h-[20%]"
-        //     }
-        //  w-[90%]  gap-2 duration-700
-        // flex flex-col  items-center justify-center rounded lg:p-2
-        // lg:grid lg:place-items-center
-        // ${legList.length > 1 ? "lg:grid-cols-2" : ""}
-        // `}
         className={` mt-4 ${
           legList.length > 1 ? "h-[70%]" : "h-44"
-        }  w-[90%] flex flex-col justify-evenly duration-500`}
+        } w-[90%]   flex flex-col justify-evenly duration-500
+      lg:p-2 lg:grid lg:place-items-center lg:gap-4
+        ${
+          legList.length > 1
+            ? "lg:grid-cols-2 "
+            : "lg:grid-cols-1 lg:w-[70%]"
+        }
+
+        `}
       >
         {legList.map((segment, i) => (
           <InputSegment
@@ -189,8 +182,7 @@ function FootprintCalculator() {
       </div>
       {/* BUTTONS */}
       <div
-        // className="buttons flex w-[90%]  items-center justify-between lg:w-[50%]"
-        className={`flex items-center justify-between w-[90%]  `}
+        className={`flex items-center justify-between w-[90%] lg:w-[50%]  `}
       >
         <button
           className="reset-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative   lg:top-0 "

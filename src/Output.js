@@ -25,18 +25,23 @@ function Output({
 
       `}
     >
-      {/* <div className="output relative flex flex-col justify-start gap-4 md:gap-6 h-[50%] w-[90%] lg:w-[70%] capitalize lg:flex-row  "> */}
       <div
-        className={`general-data   flex flex-col gap-4 lg:gap-6 w-[80%] lg:w-[50%] duration-500 ${
+        className={`general-data   flex flex-col gap-4 w-[80%]  duration-500 ${
           emissionData ? "opacity-1" : "opacity-0"
-        } `}
+        } 
+        ${
+          emissionData && emissionData.legs.length > 1
+            ? "lg:w-[60%]"
+            : "lg:w-[30%]"
+        }
+         lg:gap-6`}
       >
-        <div className="total flex items-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
+        <div className="total flex items-center justify-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
           <span>total C02:</span>
           {emissionData ? emissionData.co2e.toFixed(2) : ""}
           {emissionData ? emissionData.co2e_unit : ""}
         </div>
-        <div className="individual  flex items-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
+        <div className="individual  flex items-center justify-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
           <span>C02/passengers: </span>
 
           {emissionData
@@ -53,7 +58,7 @@ function Output({
       emissionData.legs.length === 1 &&
       flgihtExist ? (
         <div
-          className={`recap w-full lg:w-[30%] bg-[#F8F4EA] rounded-lg flex flex-col justify-center items-center capitalize relative 
+          className={`recap w-[80%] lg:w-[30%] bg-[#F8F4EA] rounded-lg flex flex-col justify-center items-center capitalize relative 
              lg:h-[200px] duration-500 ${
                emissionData ? "opacity-1" : "opacity-0"
              } `}

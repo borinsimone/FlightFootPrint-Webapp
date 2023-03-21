@@ -25,3 +25,30 @@
 .dropdown-close {
   transition: opacity 100ms, height 300ms 50ms;
 }
+
+.landing-title {
+  transition: 500ms;
+  transform: translateX(-100vw);
+  animation-name: fade-in;
+  animation-delay: 400ms;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+}
+.landing-quote {
+  transition: 500ms;
+  transform: translateX(100vw);
+  animation-name: fade-in;
+  animation-delay: 800ms;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+}
+@keyframes fade-in {
+  100% {
+    transform: translateX(0);
+  }
+}
+@media (min-width: 1020px) {
+  button {
+    padding: 10px 20px !important;
+  }
+}
