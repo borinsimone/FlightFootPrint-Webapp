@@ -81,6 +81,7 @@ function FootprintCalculator() {
       .finally(() => setIsLoading(false));
   };
   // SEGMENT MANAGEMENT
+
   const addSegment = () => {
     if (legList.length < 6) {
       setLegList([
@@ -151,10 +152,10 @@ function FootprintCalculator() {
       {/* INPUT */}
       <div
         ref={parent}
-        className={` mt-4 ${
-          legList.length > 1 ? "h-[70%]" : "h-44"
-        } w-[90%]   flex flex-col justify-evenly duration-500
-      lg:p-2 lg:grid lg:place-items-center lg:gap-4
+        className={` mt-4 
+         ${legList.length > 1 ? "h-[70%]" : "h-44"}
+              w-[90%]   flex flex-col justify-evenly duration-1000
+              lg:p-2 lg:grid lg:place-items-center lg:gap-4
         ${
           legList.length > 1
             ? "lg:grid-cols-2 "
@@ -234,134 +235,6 @@ function FootprintCalculator() {
         setIsDropdownOpen={setIsDropdownOpen}
         totalPassengers={totalPassengers}
       />
-      {/* <div className="output relative flex flex-col justify-start gap-4 md:gap-6 h-[50%] w-[90%] lg:w-[70%] capitalize lg:flex-row  ">
-        <div
-          className={`general-data   flex flex-col gap-4 lg:gap-6 w-full lg:w-[50%] duration-500 ${
-            emissionData ? "opacity-1" : "opacity-0"
-          } `}
-        >
-          <div className="total flex items-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
-            <span>total C02:</span>
-            {emissionData
-              ? emissionData.co2e.toFixed(2)
-              : ""}
-            {emissionData ? emissionData.co2e_unit : ""}
-          </div>
-          <div className="individual  flex items-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
-            <span>C02/passengers: </span>
-
-            {emissionData
-              ? (
-                  emissionData.co2e /
-                  (totalPassengers / legs.length)
-                ).toFixed(2)
-              : ""}
-            {emissionData ? emissionData.co2e_unit : ""}
-          </div>
-        </div>
-
-        {emissionData &&
-        emissionData.legs.length === 1 &&
-        flgihtExist ? (
-          <div
-            className={`recap w-full lg:w-[30%] bg-[#F8F4EA] rounded-lg flex flex-col justify-center items-center capitalize relative 
-             lg:h-[200px] duration-500 ${
-               emissionData ? "opacity-1" : "opacity-0"
-             } `}
-          >
-            <div className="recap-logo absolute left-3 top-3">
-              recap:
-            </div>
-            <div className="recap-container my-3 w-[50%] lg:w-[60%] ">
-              <div className="recap-from-to  w-full flex justify-between">
-                <span>flight:</span>
-                {`${legs[0].from} - ${legs[0].to}`}
-              </div>
-              <div className="recap-class w-full flex justify-between">
-                <span>class:</span> {`${legs[0].class}`}
-              </div>
-              <div className="recap-passengers w-full flex justify-between">
-                <span>n. passengers:</span>
-                {`${legs[0].passengers}`}
-              </div>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-
-        <div
-          className={`multi-flight ${
-            emissionData ? "" : ""
-          } overflow-y-scroll flex flex-col gap-4  md:gap-6 ${
-            emissionData && emissionData.legs.length > 1
-              ? "lg:w-[50%]"
-              : "lg:w-0"
-          } `}
-        >
-          {emissionData && emissionData.legs.length > 1
-            ? emissionData.legs.map((item, i) => (
-                <div
-                  key={i}
-                  className="individual-flight flex flex-col bg-[#F8F4EA] cursor-pointer   justify-center rounded-lg  "
-                  onClick={() => {
-                    setIsDropdownOpen((prevState) =>
-                      prevState.map((item, index) =>
-                        index === i ? !item : false
-                      )
-                    );
-                  }}
-                >
-                  <div className="emission-header md:h-12 p-2 md:p-3 w-full flex items-center justify-between">
-                    <span className="">
-                      recap. flight {i + 1}
-                    </span>
-                    {`${legs[i].from} - ${legs[i].to}`}
-                  </div>
-
-                  <div
-                    className={`dropdown emission flex  overflow-hidden px-2 md:px-3  w-full 
-            ${
-              isDropdownOpen[i]
-                ? " opacity-1 h-[4em] dropdown-open "
-                : "opacity-0 h-0 dropdown-close"
-            }`}
-                  >
-                    <div className="left w-[50%] flex flex-col gap-2 ">
-                      <div className="total flex items-center gap-1">
-                        <span className="">total:</span>
-                        {emissionData.legs[i].co2e.toFixed(
-                          2
-                        )}
-                        {emissionData.legs[i].co2e_unit}
-                      </div>
-                      <div className="individual flex gap-1">
-                        <span>individual:</span>
-                        {(
-                          emissionData.legs[i].co2e /
-                          legs[i].passengers
-                        ).toFixed(2)}
-                        {emissionData
-                          ? emissionData.co2e_unit
-                          : ""}
-                      </div>
-                    </div>
-                    <div className="right w-[50%] flex flex-col gap-2 items-end ">
-                      <div className="drop-class flex gap-1">
-                        <span>class:</span>
-                        {`${legs[i].class}`}
-                      </div>
-                      <div className="drop-passengers flex gap-1">
-                        <span>n. passengers:</span>
-                        {`${legs[i].passengers}`}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))
-            : ""}
-        </div>
-      </div> */}
     </div>
   );
 }

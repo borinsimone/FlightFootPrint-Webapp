@@ -151,7 +151,6 @@ function Output({
             ))
           : ""}
       </div>
-      {/* </div> */}
       <button
         className="bg-black/50 rounded py-1 px-3 text-white capitalize"
         onClick={() => {
