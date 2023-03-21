@@ -154,7 +154,7 @@ function FootprintCalculator() {
         ref={parent}
         className={` mt-4 
          ${legList.length > 1 ? "h-[70%]" : "h-44"}
-              w-[90%]   flex flex-col justify-evenly duration-1000
+              w-[90%]   flex flex-col justify-evenly duration-500
               lg:p-2 lg:grid lg:place-items-center lg:gap-4
         ${
           legList.length > 1
