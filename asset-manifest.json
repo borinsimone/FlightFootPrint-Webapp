@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/flightfootprint-webapp/static/css/main.e0933bb4.css",
-    "main.js": "/flightfootprint-webapp/static/js/main.2c7ad24b.js",
+    "main.css": "/flightfootprint-webapp/static/css/main.48605b26.css",
+    "main.js": "/flightfootprint-webapp/static/js/main.d5044a26.js",
     "static/media/loading.gif": "/flightfootprint-webapp/static/media/loading.0e7f361ed264b5a8a658.gif",
     "index.html": "/flightfootprint-webapp/index.html",
-    "main.e0933bb4.css.map": "/flightfootprint-webapp/static/css/main.e0933bb4.css.map",
-    "main.2c7ad24b.js.map": "/flightfootprint-webapp/static/js/main.2c7ad24b.js.map"
+    "main.48605b26.css.map": "/flightfootprint-webapp/static/css/main.48605b26.css.map",
+    "main.d5044a26.js.map": "/flightfootprint-webapp/static/js/main.d5044a26.js.map"
   },
   "entrypoints": [
-    "static/css/main.e0933bb4.css",
-    "static/js/main.2c7ad24b.js"
+    "static/css/main.48605b26.css",
+    "static/js/main.d5044a26.js"
   ]
 }
