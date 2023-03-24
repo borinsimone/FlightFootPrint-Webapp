@@ -48,12 +48,11 @@ function FootprintCalculator() {
     );
   }, [departureCode, arrivalCode, passengers, cabinClass]);
 
-  const getEmission = () => {
+  const getEmission = async () => {
     setFlgihtExist(false);
     setIsLoading(true);
-
-    axios
-      .post(
+    try {
+      const response = await axios.post(
         "https://beta3.api.climatiq.io/travel/flights",
         {
           legs,
@@ -64,22 +63,54 @@ function FootprintCalculator() {
             "Content-Type": "application/json",
           },
         }
-      )
-      .then((response) => {
-        console.log(response);
-        if (response.data.co2e === 0) {
-          setError(true);
-        } else {
-          setEmissionData(response.data);
-        }
-        setFlgihtExist(true);
-      })
-      .catch((error) => {
-        console.error(error);
+      );
+      console.log(response);
+      if (response.data.co2e === 0) {
         setError(true);
-      })
-      .finally(() => setIsLoading(false));
+      } else {
+        setEmissionData(response.data);
+      }
+      setFlgihtExist(true);
+    } catch (error) {
+      console.error(error);
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
+  // GoCLimate api fetch example
+  // const [climateSegment, setClimateSegment] = useState([]);
+  // const updateSegment = () => {
+  //   setClimateSegment(
+  //     legList.map((item, i) => ({
+  //       origin: `${legList[i].departureCode}`,
+  //       destination: `${legList[i].arrivalCode}`,
+  //     }))
+  //   );
+  // };
+
+  // const goClimateFetch = async () => {
+  //   const params = {
+  //     segments: [...climateSegment],
+  //     // cabin_class: `${cabinClass}`,
+  //     cabin_class: `economy`,
+  //     passengers: `${totalPassengers}`,
+  //   };
+  //   try {
+  //     const response = await axios.get(
+  //       "https://api.goclimate.com/v1/flight_footprint",
+  //       {
+  //         params,
+  //         auth: {
+  //           username: "bea8d22f4c50ffd8ec370d2a",
+  //           password: "",
+  //         },
+  //       }
+  //     );
+  //     console.log(response);
+  //   } catch (error) {}
+  // };
+
   // SEGMENT MANAGEMENT
 
   const addSegment = () => {
@@ -153,9 +184,9 @@ function FootprintCalculator() {
       <div
         ref={parent}
         className={` mt-4 
-         ${legList.length > 1 ? "h-[70%]" : "h-44"}
+         ${legList.length > 1 ? "h-[90%]" : "h-44"}
               w-[90%]   flex flex-col justify-evenly duration-500
-              lg:p-2 lg:grid lg:place-items-center lg:gap-4
+              lg:p-2 lg:grid lg:place-items-center lg:gap-4 
         ${
           legList.length > 1
             ? "lg:grid-cols-2 "
@@ -183,7 +214,7 @@ function FootprintCalculator() {
       </div>
       {/* BUTTONS */}
       <div
-        className={`flex items-center justify-between w-[90%] lg:w-[50%]  `}
+        className={`flex items-center justify-between h-[10%]  w-[90%] lg:w-[50%]  `}
       >
         <button
           className="reset-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative   lg:top-0 "

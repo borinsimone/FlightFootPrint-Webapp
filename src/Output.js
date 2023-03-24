@@ -18,7 +18,7 @@ function Output({
 
   return (
     <div
-      className={`output absolute text-black capitalize  bg-[#E1D7C6]/80 backdrop-blur-md
+      className={`output absolute text-black capitalize  bg-[#E1D7C6]/20 backdrop-blur-md
         h-full w-full   flex flex-col items-center justify-center gap-4 md:gap-6 duration-500
         ${outputOpen ? "opaciti-1 z-50" : "opaciti-0 -z-50"}
       
