@@ -79,6 +79,7 @@ function FootprintCalculator() {
     }
   };
   // GoCLimate api fetch example
+
   // const [climateSegment, setClimateSegment] = useState([]);
   // const updateSegment = () => {
   //   setClimateSegment(
@@ -191,8 +192,7 @@ function FootprintCalculator() {
           legList.length > 1
             ? "lg:grid-cols-2 "
             : "lg:grid-cols-1 lg:w-[70%]"
-        }
-
+        } overflow-visible
         `}
       >
         {legList.map((segment, i) => (

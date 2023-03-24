@@ -34,9 +34,9 @@ function Output({
             ? "lg:w-[60%]"
             : "lg:w-[30%]"
         }
-         lg:gap-6`}
+         lg:gap-6 overflow-visible`}
       >
-        <div className="total flex items-center justify-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
+        <div className="total  flex items-center justify-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
           <span>total C02:</span>
           {emissionData ? emissionData.co2e.toFixed(2) : ""}
           {emissionData ? emissionData.co2e_unit : ""}
@@ -85,7 +85,7 @@ function Output({
       )}
 
       <div
-        className={`multi-flight w-[80%] overflow-y-scroll flex flex-col gap-4  md:gap-6 ${
+        className={`multi-flight overflow-visible  w-[80%]  flex flex-col gap-4  md:gap-6 ${
           emissionData && emissionData.legs.length > 1
             ? "lg:w-[50%]"
             : "lg:w-0"
@@ -120,12 +120,12 @@ function Output({
             }`}
                 >
                   <div className="left w-[50%] flex flex-col gap-2 ">
-                    <div className="total flex items-center gap-1">
+                    <div className=" flex items-center gap-1">
                       <span className="">total:</span>
                       {emissionData.legs[i].co2e.toFixed(2)}
                       {emissionData.legs[i].co2e_unit}
                     </div>
-                    <div className="individual flex gap-1">
+                    <div className=" flex gap-1">
                       <span>individual:</span>
                       {(
                         emissionData.legs[i].co2e /
