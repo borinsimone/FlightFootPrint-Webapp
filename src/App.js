@@ -20,9 +20,9 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setLandingPanelOpen(false);
-      console.log("useffect");
     }, 1800);
   });
+
   return (
     <div className="App w-screen bg-[#E1D7C6]  md:text-2xl flex flex-col items-center justify-center overflow-hidden ">
       <div
@@ -33,7 +33,6 @@ function App() {
             : "-z-50 opacity-0"
         }
         md:gap-8
-        
         `}
       >
         <span

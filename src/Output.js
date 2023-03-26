@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 
 function Output({
   emissionData,
+  setEmissionData,
   legs,
   flgihtExist,
   isDropdownOpen,
   setIsDropdownOpen,
   totalPassengers,
-  setEmissionData,
 }) {
   const [outputOpen, setOutputOpen] = useState(false);
   useEffect(() => {

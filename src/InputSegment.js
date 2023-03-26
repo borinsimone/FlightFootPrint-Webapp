@@ -7,12 +7,12 @@ function InputSegment({
   setArrivalCode,
   setPassengers,
   setCabinClass,
-  removeSegment,
+  legList,
   departureCode,
   arrivalCode,
   cabinClass,
   passengers,
-  legList,
+  removeSegment,
   i,
 }) {
   const handleChangeFrom = (event) => {
@@ -33,7 +33,7 @@ function InputSegment({
   };
   return (
     <div
-      className={`segment  capitalize duration-700 p-2 h-22 md:h-28 w-full  flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
+      className={`segment capitalize duration-700 p-2 h-22 md:h-28 w-full flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
     >
       <div className="add-icon cursor-pointer text-[20px] text-black z-10 absolute top-[10px] right-[10px]">
         <MdDeleteOutline
@@ -44,7 +44,7 @@ function InputSegment({
           }}
         />
       </div>
-      <div className="from-to flex w-full ">
+      <div className="from-to flex w-full">
         {/* FROM */}
         <div className="from relative flex justify-start w-[50%] gap-2 lg:gap-4">
           <label htmlFor="from-airports"> from:</label>
@@ -93,14 +93,14 @@ function InputSegment({
 
           <input
             onChange={handleChangeClass}
-            className=" text-black  capitalize w-[60%] lg:w-[45%] text-center"
+            className="text-black  capitalize w-[60%] lg:w-[45%] text-center"
             list="class-list"
             id="cabin-class"
             value={cabinClass}
           />
           <datalist id="class-list">
             <option value="economy"></option>
-            <option value="business"> </option>
+            <option value="business"></option>
             <option value="first"></option>
           </datalist>
         </div>
@@ -109,7 +109,7 @@ function InputSegment({
           <input
             value={passengers}
             onChange={handleChangePassengers}
-            className=" w-[20%] lg:w-[25%] text-center text-black"
+            className="w-[20%] lg:w-[25%] text-center text-black"
             type="number"
           />
         </div>

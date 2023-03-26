@@ -96,6 +96,7 @@ function FootprintCalculator() {
   //     cabin_class: `economy`,
   //     passengers: `${totalPassengers}`,
   //   };
+
   //   try {
   //     const response = await axios.get(
   //       "https://api.goclimate.com/v1/flight_footprint",
@@ -170,7 +171,7 @@ function FootprintCalculator() {
       <div
         className={`error duration-300 ${
           error ? "opacity-1 z-10" : "opacity-0 -z-10"
-        } absolute bg-slate-600 h-[100px] md:h-[200px] w-[90%] lg:w-[60%] top-[30%] flex items-center justify-center  rounded-xl p-2 md:p-3`}
+        } absolute bg-slate-600 h-[100px] md:h-[200px] w-[90%] lg:w-[60%] top-[calc(50%-50px)] md:top-[calc(50%-100px)] flex items-center justify-center  rounded-xl p-2 md:p-3`}
       >
         <div className="border-4 border-[red]/70 h-full w-full flex flex-col items-center justify-center gap-3 md:gap-7 rounded-xl py-3">
           <div className="error-text text-white">
@@ -190,12 +191,12 @@ function FootprintCalculator() {
       <div
         ref={parent}
         className={` mt-4 
-         ${legList.length > 1 ? "h-[90%]" : "h-44"}
+         ${legList.length > 1 ? "h-[80%] " : "h-44"}
               w-[90%]   flex flex-col justify-evenly duration-500
               lg:p-2 lg:grid lg:place-items-center lg:gap-4 
         ${
           legList.length > 1
-            ? "lg:grid-cols-2 "
+            ? "lg:grid-cols-2 lg:h-[70%] "
             : "lg:grid-cols-1 lg:w-[70%]"
         } overflow-visible
         `}
@@ -219,10 +220,10 @@ function FootprintCalculator() {
       </div>
       {/* BUTTONS */}
       <div
-        className={`flex items-center justify-between h-[10%]  w-[90%] lg:w-[50%]  `}
+        className={`flex items-center justify-between h-[10%]  w-[90%] lg:w-[50%]`}
       >
         <button
-          className="reset-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative   lg:top-0 "
+          className="reset-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative lg:top-0 "
           onClick={() => {
             console.log("reset list");
             setLegs([]);
@@ -251,7 +252,7 @@ function FootprintCalculator() {
           calculate
         </button>
         <button
-          className="plus-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative  lg:top-0   "
+          className="plus-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative  lg:top-0"
           onClick={() => {
             console.log("add input range");
             addSegment();
