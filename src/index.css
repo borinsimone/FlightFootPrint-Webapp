@@ -23,13 +23,18 @@
 }
 
 .dropdown-open {
-  -webkit-transition: opacity 400ms 400ms, height 400ms;
-  transition: opacity 400ms 400ms, height 400ms;
+  -webkit-transition: opacity 400ms, height 400ms;
+  transition: opacity 400ms, height 400ms;
 }
 
 .dropdown-close {
   -webkit-transition: opacity 100ms, height 300ms 50ms;
   transition: opacity 100ms, height 300ms 50ms;
+}
+
+.landing-panel {
+  background: -webkit-gradient(linear, left bottom, left top, from(#90836c), color-stop(50%, rgba(255, 207, 0, 0)), to(#90836c));
+  background: linear-gradient(0deg, #90836c 0%, rgba(255, 207, 0, 0) 50%, #90836c 100%);
 }
 
 .landing-title {

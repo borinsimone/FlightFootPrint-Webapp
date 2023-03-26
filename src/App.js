@@ -23,11 +23,11 @@ function App() {
       console.log("useffect");
     }, 1800);
   });
-
   return (
     <div className="App w-screen bg-[#E1D7C6]  md:text-2xl flex flex-col items-center justify-center overflow-hidden ">
       <div
-        className={`landing-panel absolute h-full w-full flex gap-6  flex-col items-center justify-center  bg-[#E1D7C6]/30 backdrop-blur-lg duration-500 ${
+        className={`landing-panel absolute h-full w-full flex gap-6  flex-col items-center justify-center  bg-[#E1D7C6]/30 backdrop-blur-lg duration-500 
+        ${
           landingPanelOpen
             ? "z-50 opacity-1"
             : "-z-50 opacity-0"
@@ -37,7 +37,7 @@ function App() {
         `}
       >
         <span
-          className="landing-title text-4xl font-black tracking-widest
+          className="landing-title text-4xl font-black  tracking-widest
         md:text-6xl md:py-2
         "
         >

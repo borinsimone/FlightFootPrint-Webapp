@@ -20,10 +20,18 @@
 }
 
 .dropdown-open {
-  transition: opacity 400ms 400ms, height 400ms;
+  transition: opacity 400ms, height 400ms;
 }
 .dropdown-close {
   transition: opacity 100ms, height 300ms 50ms;
+}
+.landing-panel {
+  background: linear-gradient(
+    0deg,
+    rgb(144, 131, 108) 0%,
+    rgba(255, 207, 0, 0) 50%,
+    rgb(144, 131, 108) 100%
+  );
 }
 
 .landing-title {

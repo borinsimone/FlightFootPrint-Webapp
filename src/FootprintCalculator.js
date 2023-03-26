@@ -78,7 +78,7 @@ function FootprintCalculator() {
       setIsLoading(false);
     }
   };
-  // GoCLimate api fetch example
+  // GoCLimate api fetch
 
   // const [climateSegment, setClimateSegment] = useState([]);
   // const updateSegment = () => {
@@ -93,7 +93,6 @@ function FootprintCalculator() {
   // const goClimateFetch = async () => {
   //   const params = {
   //     segments: [...climateSegment],
-  //     // cabin_class: `${cabinClass}`,
   //     cabin_class: `economy`,
   //     passengers: `${totalPassengers}`,
   //   };
@@ -109,7 +108,13 @@ function FootprintCalculator() {
   //       }
   //     );
   //     console.log(response);
-  //   } catch (error) {}
+  //     setEmissionData(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     setError(true);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
   // };
 
   // SEGMENT MANAGEMENT
