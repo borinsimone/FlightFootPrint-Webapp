@@ -40,12 +40,11 @@
 .landing-title {
   -webkit-transition: 500ms;
   transition: 500ms;
-  -webkit-transform: translateX(-100vw);
-          transform: translateX(-100vw);
+  opacity: 0;
   -webkit-animation-name: fade-in;
           animation-name: fade-in;
-  -webkit-animation-delay: 400ms;
-          animation-delay: 400ms;
+  -webkit-animation-delay: 700ms;
+          animation-delay: 700ms;
   -webkit-animation-duration: 500ms;
           animation-duration: 500ms;
   -webkit-animation-fill-mode: forwards;
@@ -55,16 +54,72 @@
 .landing-quote {
   -webkit-transition: 500ms;
   transition: 500ms;
-  -webkit-transform: translateX(100vw);
-          transform: translateX(100vw);
+  opacity: 0;
   -webkit-animation-name: fade-in;
           animation-name: fade-in;
-  -webkit-animation-delay: 800ms;
-          animation-delay: 800ms;
+  -webkit-animation-delay: 1200ms;
+          animation-delay: 1200ms;
   -webkit-animation-duration: 500ms;
           animation-duration: 500ms;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+}
+
+.airplane {
+  height: 100px;
+  display: block;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-animation-name: slide-in;
+          animation-name: slide-in;
+  -webkit-animation-duration: 4000ms;
+          animation-duration: 4000ms;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-transform: translateX(-100vw);
+          transform: translateX(-100vw);
+}
+
+@-webkit-keyframes slide-in {
+  0% {
+    -webkit-transform: rotate(90deg) translateY(100vw);
+            transform: rotate(90deg) translateY(100vw);
+  }
+  50% {
+    -webkit-transform: rotate(90deg) translateY(0);
+            transform: rotate(90deg) translateY(0);
+  }
+  100% {
+    -webkit-transform: rotate(90deg) translateY(-100vw);
+            transform: rotate(90deg) translateY(-100vw);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    -webkit-transform: rotate(90deg) translateY(100vw);
+            transform: rotate(90deg) translateY(100vw);
+  }
+  50% {
+    -webkit-transform: rotate(90deg) translateY(0);
+            transform: rotate(90deg) translateY(0);
+  }
+  100% {
+    -webkit-transform: rotate(90deg) translateY(-100vw);
+            transform: rotate(90deg) translateY(-100vw);
+  }
+}
+
+@-webkit-keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
 }
 
 .total,
@@ -74,20 +129,6 @@
 .individual-flight {
   -webkit-box-shadow: 8px 8px 15px -3px #000000;
   box-shadow: 8px 8px 15px -3px #000000;
-}
-
-@-webkit-keyframes fade-in {
-  100% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-}
-
-@keyframes fade-in {
-  100% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
 }
 
 @media (min-width: 1020px) {

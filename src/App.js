@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import FootprintCalculator from "./FootprintCalculator";
-
+import airplane from "./assets/airplane.png";
 import "./index.css";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setLandingPanelOpen(false);
-    }, 1800);
+    }, 3000);
   });
 
   return (
@@ -48,6 +48,7 @@ function App() {
         >
           Viaggiare con consapevolezza
         </span>
+        <img src={airplane} className={`airplane`} alt="" />
       </div>
 
       <FootprintCalculator />

@@ -34,23 +34,69 @@
   );
 }
 
+// .landing-title {
+//   transition: 500ms;
+//   transform: translateX(-100vw);
+//   animation-name: slide-in;
+//   animation-delay: 400ms;
+//   animation-duration: 500ms;
+//   animation-fill-mode: forwards;
+// }
+// .landing-quote {
+//   transition: 500ms;
+//   transform: translateX(100vw);
+//   animation-name: slide-in;
+//   animation-delay: 800ms;
+//   animation-duration: 500ms;
+//   animation-fill-mode: forwards;
+// }
 .landing-title {
   transition: 500ms;
-  transform: translateX(-100vw);
+  opacity: 0;
   animation-name: fade-in;
-  animation-delay: 400ms;
+  animation-delay: 700ms;
   animation-duration: 500ms;
   animation-fill-mode: forwards;
 }
 .landing-quote {
   transition: 500ms;
-  transform: translateX(100vw);
+  opacity: 0;
   animation-name: fade-in;
-  animation-delay: 800ms;
+  animation-delay: 1200ms;
   animation-duration: 500ms;
   animation-fill-mode: forwards;
 }
-
+.airplane {
+  height: 100px;
+  display: block;
+  transform: rotate(90deg);
+  animation-name: slide-in;
+  // animation-delay: 800ms;
+  animation-duration: 4000ms;
+  animation-fill-mode: forwards;
+  transform: translateX(-100vw);
+}
+@keyframes slide-in {
+  0% {
+    transform: rotate(90deg) translateY(100vw);
+  }
+  50% {
+    transform: rotate(90deg) translateY(0);
+  }
+  100% {
+    transform: rotate(90deg) translateY(-100vw);
+  }
+}
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
+// @keyframes slide-in {
+//   100% {
+//     transform: translateX(0);
+//   }
+// }
 .total,
 .individual,
 .recap,
@@ -58,11 +104,6 @@
 .individual-flight {
   -webkit-box-shadow: 8px 8px 15px -3px #000000;
   box-shadow: 8px 8px 15px -3px #000000;
-}
-@keyframes fade-in {
-  100% {
-    transform: translateX(0);
-  }
 }
 @media (min-width: 1020px) {
   button {
