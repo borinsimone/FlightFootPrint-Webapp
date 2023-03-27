@@ -34,22 +34,6 @@
   );
 }
 
-// .landing-title {
-//   transition: 500ms;
-//   transform: translateX(-100vw);
-//   animation-name: slide-in;
-//   animation-delay: 400ms;
-//   animation-duration: 500ms;
-//   animation-fill-mode: forwards;
-// }
-// .landing-quote {
-//   transition: 500ms;
-//   transform: translateX(100vw);
-//   animation-name: slide-in;
-//   animation-delay: 800ms;
-//   animation-duration: 500ms;
-//   animation-fill-mode: forwards;
-// }
 .landing-title {
   transition: 500ms;
   opacity: 0;
@@ -92,11 +76,7 @@
     opacity: 1;
   }
 }
-// @keyframes slide-in {
-//   100% {
-//     transform: translateX(0);
-//   }
-// }
+
 .total,
 .individual,
 .recap,
