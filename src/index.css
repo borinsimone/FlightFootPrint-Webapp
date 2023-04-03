@@ -136,4 +136,10 @@
     padding: 10px 20px !important;
   }
 }
+
+button:hover {
+  background-color: #000000d4;
+  -webkit-transition: 400ms;
+  transition: 400ms;
+}
 /*# sourceMappingURL=index.css.map */

@@ -6,7 +6,6 @@ import loading from "./assets/loading.gif";
 import Output from "./Output";
 
 function FootprintCalculator() {
-  const token = "PFZSMPX3TX4GE5GRVF585YC2HREC";
   const [departureCode, setDepartureCode] = useState("");
   const [arrivalCode, setArrivalCode] = useState("");
   const [passengers, setPassengers] = useState(1);
@@ -17,7 +16,7 @@ function FootprintCalculator() {
   const [legList, setLegList] = useState([
     { departureCode, arrivalCode, passengers, cabinClass },
   ]);
-  const [flgihtExist, setFlgihtExist] = useState(false);
+  const [flightExist, setFlightExist] = useState(false);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,7 +48,7 @@ function FootprintCalculator() {
   }, [departureCode, arrivalCode, passengers, cabinClass]);
 
   const getEmission = async () => {
-    setFlgihtExist(false);
+    setFlightExist(false);
     setIsLoading(true);
     try {
       const response = await axios.post(
@@ -59,7 +58,7 @@ function FootprintCalculator() {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${process.env.REACT_APP_CLIMATIQ_KEY}`,
             "Content-Type": "application/json",
           },
         }
@@ -70,7 +69,7 @@ function FootprintCalculator() {
       } else {
         setEmissionData(response.data);
       }
-      setFlgihtExist(true);
+      setFlightExist(true);
     } catch (error) {
       console.error(error);
       setError(true);
@@ -78,6 +77,7 @@ function FootprintCalculator() {
       setIsLoading(false);
     }
   };
+
   // GoCLimate api fetch
 
   // const [climateSegment, setClimateSegment] = useState([]);
@@ -103,7 +103,7 @@ function FootprintCalculator() {
   //       {
   //         params,
   //         auth: {
-  //           username: "bea8d22f4c50ffd8ec370d2a",
+  //           username: ${process.env.REACT_APP_GOCLIMATE_KEY},
   //           password: "",
   //         },
   //       }
@@ -267,7 +267,7 @@ function FootprintCalculator() {
         emissionData={emissionData}
         setEmissionData={setEmissionData}
         legs={legs}
-        flgihtExist={flgihtExist}
+        flightExist={flightExist}
         isDropdownOpen={isDropdownOpen}
         setIsDropdownOpen={setIsDropdownOpen}
         totalPassengers={totalPassengers}

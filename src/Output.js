@@ -4,7 +4,7 @@ function Output({
   emissionData,
   setEmissionData,
   legs,
-  flgihtExist,
+  flightExist,
   isDropdownOpen,
   setIsDropdownOpen,
   totalPassengers,
@@ -56,7 +56,7 @@ function Output({
 
       {emissionData &&
       emissionData.legs.length === 1 &&
-      flgihtExist ? (
+      flightExist ? (
         <div
           className={`recap w-[80%] lg:w-[30%] bg-[#F8F4EA] rounded-lg flex flex-col justify-center items-center capitalize relative 
              lg:h-[200px] duration-500 ${
