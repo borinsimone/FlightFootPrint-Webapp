@@ -66,18 +66,19 @@
 }
 
 .airplane {
-  height: 100px;
-  display: block;
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
+  height: 100px;
   -webkit-animation-name: slide-in;
           animation-name: slide-in;
-  -webkit-animation-duration: 4000ms;
-          animation-duration: 4000ms;
+  -webkit-animation-delay: 800ms;
+          animation-delay: 800ms;
+  -webkit-animation-duration: 2500ms;
+          animation-duration: 2500ms;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
-  -webkit-transform: translateX(-100vw);
-          transform: translateX(-100vw);
+  -webkit-transform: translateX(100vw);
+          transform: translateX(100vw);
 }
 
 @-webkit-keyframes slide-in {
@@ -131,6 +132,11 @@
   box-shadow: 8px 8px 15px -3px #000000;
 }
 
+.fetch-button:hover {
+  -webkit-box-shadow: inset 0px 0px 10px 5px rgba(255, 255, 255, 0.607);
+          box-shadow: inset 0px 0px 10px 5px rgba(255, 255, 255, 0.607);
+}
+
 @media (min-width: 1020px) {
   button {
     padding: 10px 20px !important;
@@ -138,8 +144,10 @@
 }
 
 button:hover {
-  background-color: #000000d4;
-  -webkit-transition: 400ms;
-  transition: 400ms;
+  background-color: #000000e9;
+}
+
+.output {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(101, 84, 51, 0.586) 100%);
 }
 /*# sourceMappingURL=index.css.map */

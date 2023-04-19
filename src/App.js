@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import FootprintCalculator from "./FootprintCalculator";
-import airplane from "./assets/airplane.png";
+import Output from "./Output";
 import "./index.css";
-
+import LandingPanel from "./LandingPanel";
+import {
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 function App() {
   useEffect(() => {
     function updateVh() {
@@ -15,43 +21,22 @@ function App() {
     window.addEventListener("resize", updateVh);
     console.log("resize");
   }, []);
-  const [landingPanelOpen, setLandingPanelOpen] =
-    useState(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLandingPanelOpen(false);
-    }, 3000);
-  });
 
+  const location = useLocation();
+  let n = 8;
   return (
     <div className="App w-screen bg-[#E1D7C6]  md:text-2xl flex flex-col items-center justify-center overflow-hidden ">
-      <div
-        className={`landing-panel absolute h-full w-full flex gap-6  flex-col items-center justify-center  bg-[#E1D7C6]/30 backdrop-blur-lg duration-500 
-        ${
-          landingPanelOpen
-            ? "z-50 opacity-1"
-            : "-z-50 opacity-0"
-        }
-        md:gap-8
-        `}
-      >
-        <span
-          className="landing-title text-4xl font-black  tracking-widest
-        md:text-6xl md:py-2
-        "
-        >
-          FlightFootPrint
-        </span>
-        <span
-          className="landing-quote text-2xl font-bold
-        md:text-3xl"
-        >
-          Viaggiare con consapevolezza
-        </span>
-        <img src={airplane} className={`airplane`} alt="" />
-      </div>
+      <LandingPanel />
 
-      <FootprintCalculator />
+      <AnimatePresence mode="wait" onExitComplete={true}>
+        <Routes>
+          <Route
+            path="/"
+            element={<FootprintCalculator />}
+          />
+          <Route path="/output" element={<Output />} />
+        </Routes>
+      </AnimatePresence>
     </div>
   );
 }

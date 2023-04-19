@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import InputSegment from "./InputSegment";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import loading from "./assets/loading.gif";
-import Output from "./Output";
+import { useGlobalContext } from "./context/context";
+import { useNavigate } from "react-router-dom";
 
+import { motion } from "framer-motion";
+import { fetch } from "./fetch";
+import airplane from "./assets/airplane.png";
 function FootprintCalculator() {
-  const [departureCode, setDepartureCode] = useState("");
-  const [arrivalCode, setArrivalCode] = useState("");
-  const [passengers, setPassengers] = useState(1);
-  const [totalPassengers, setTotalPassengers] = useState();
-  const [cabinClass, setCabinClass] = useState("");
-  const [legs, setLegs] = useState([]);
-  const [emissionData, setEmissionData] = useState();
-  const [legList, setLegList] = useState([
-    { departureCode, arrivalCode, passengers, cabinClass },
-  ]);
-  const [flightExist, setFlightExist] = useState(false);
+  const {
+    setEmissionData,
+    legs,
+    setLegs,
+
+    setIsDropdownOpen,
+    departureCode,
+    setDepartureCode,
+    arrivalCode,
+    setArrivalCode,
+    passengers,
+    setPassengers,
+    setTotalPassengers,
+    cabinClass,
+    setCabinClass,
+    legList,
+    setLegList,
+    landingPanelOpen,
+    setLandingPanelOpen,
+  } = useGlobalContext();
+
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     setArrivalCode("");
     setDepartureCode("");
@@ -48,35 +61,51 @@ function FootprintCalculator() {
   }, [departureCode, arrivalCode, passengers, cabinClass]);
 
   const getEmission = async () => {
-    setFlightExist(false);
-    setIsLoading(true);
-    try {
-      const response = await axios.post(
-        "https://beta3.api.climatiq.io/travel/flights",
-        {
-          legs,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_CLIMATIQ_KEY}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    let response = await fetch(legs);
+    if (response.status === 200) {
       console.log(response);
-      if (response.data.co2e === 0) {
-        setError(true);
-      } else {
-        setEmissionData(response.data);
-      }
-      setFlightExist(true);
-    } catch (error) {
-      console.error(error);
+      setEmissionData(response.data);
+      setIsLoading(false);
+      navigate("/output", { replace: true });
+    }
+
+    if (response === "empty") {
       setError(true);
-    } finally {
       setIsLoading(false);
     }
   };
+
+  // const getEmission = async () => {
+  //   setFlightExist(false);
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await axios.post(
+  //       "https://beta3.api.climatiq.io/travel/flights",
+  //       {
+  //         legs,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${process.env.REACT_APP_CLIMATIQ_KEY}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     console.log(response);
+  //     if (response.data.co2e === 0) {
+  //       setError(true);
+  //     } else {
+  //       setEmissionData(response.data);
+  //       navigate("/output");
+  //     }
+  //     setFlightExist(true);
+  //   } catch (error) {
+  //     console.error(error);
+  //     setError(true);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   // GoCLimate api fetch
 
@@ -146,18 +175,27 @@ function FootprintCalculator() {
   const [parent] = useAutoAnimate();
 
   // UI STATE
-  const [isDropdownOpen, setIsDropdownOpen] = useState(
-    legList.map(() => false)
-  );
+
   useEffect(() => {
     setIsDropdownOpen(legList.map(() => false));
   }, [legList]);
 
   return (
-    <div className="relative bg-[#E1D7C6] h-full w-full  flex flex-col justify-center items-center">
+    <motion.div
+      className="relative bg-[#motion.] h-full w-full  flex flex-col justify-center items-center"
+      initial={{
+        opacity: 0,
+        transition: { duration: 0.5 },
+      }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.5 },
+      }}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+    >
       {/* LOADING */}
       <div
-        className={`loading-panel ${
+        className={`loading-panel absolute ${
           isLoading ? "z-50 opacity-1" : "-z-10 opacity-0"
         }  backdrop-blur-sm absolute h-full w-full flex items-center justify-center duration-300`}
       >
@@ -175,7 +213,7 @@ function FootprintCalculator() {
       >
         <div className="border-4 border-[red]/70 h-full w-full flex flex-col items-center justify-center gap-3 md:gap-7 rounded-xl py-3">
           <div className="error-text text-white">
-            Seems that your flight doesn't exist
+            Please fill all range
           </div>
           <button
             className="close-error bg-white/60 px-4 rounded-lg text-white "
@@ -220,10 +258,12 @@ function FootprintCalculator() {
       </div>
       {/* BUTTONS */}
       <div
-        className={`flex items-center justify-between h-[10%]  w-[90%] lg:w-[50%]`}
+        className={` overflow-visible flex items-center justify-between h-[10%]  w-[90%] lg:w-[50%]`}
       >
-        <button
-          className="reset-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative lg:top-0 "
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="reset-btn  bg-black/50 rounded py-1 px-3 text-white capitalize relative lg:top-0 "
           onClick={() => {
             console.log("reset list");
             setLegs([]);
@@ -241,18 +281,24 @@ function FootprintCalculator() {
           }}
         >
           reset
-        </button>
-        <button
-          className="bg-black/50 px-3 py-1  rounded text-white capitalize"
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className=" bg-black/50 px-3 py-1  rounded text-white capitalize"
           onClick={() => {
             console.log("starting fetch");
+            setIsLoading(true);
             getEmission();
           }}
         >
           calculate
-        </button>
-        <button
-          className="plus-btn bg-black/50 rounded py-1 px-3 text-white capitalize relative  lg:top-0"
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="plus-btn  bg-black/50 rounded py-1 px-3 text-white capitalize relative  lg:top-0"
           onClick={() => {
             console.log("add input range");
             addSegment();
@@ -260,19 +306,9 @@ function FootprintCalculator() {
           }}
         >
           add
-        </button>
+        </motion.button>
       </div>
-      {/* OUTPUT */}
-      <Output
-        emissionData={emissionData}
-        setEmissionData={setEmissionData}
-        legs={legs}
-        flightExist={flightExist}
-        isDropdownOpen={isDropdownOpen}
-        setIsDropdownOpen={setIsDropdownOpen}
-        totalPassengers={totalPassengers}
-      />
-    </div>
+    </motion.div>
   );
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "./context/context";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -13,12 +13,13 @@ function Output({}) {
     totalPassengers,
   } = useGlobalContext();
 
+  // const [outputOpen, setOutputOpen] = useState(false);
   const navigate = useNavigate();
-  const output = {
-    hidden: {
-      opacity: 0,
-    },
-  };
+  // useEffect(() => {
+  //   if (emissionData) {
+  //     setOutputOpen(true);
+  //   }
+  // }, [emissionData]);
 
   return (
     <motion.div
@@ -28,20 +29,16 @@ function Output({}) {
       
 
       `}
-      initial={{
-        opacity: 0,
-        transition: { duration: 0.5 },
-      }}
-      animate={{
-        opacity: 1,
-        transition: { duration: 0.5 },
-      }}
-      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <div
-        className={`general-data   flex flex-col gap-4 w-[80%]  duration-500 
+        className={`general-data   flex flex-col gap-4 w-[80%]  duration-500 ${
+          emissionData ? "opacity-1" : "opacity-0"
+        } 
         ${
-          emissionData.legs.length > 1
+          emissionData && emissionData.legs.length > 1
             ? "lg:w-[60%]"
             : "lg:w-[30%]"
         }
@@ -49,21 +46,25 @@ function Output({}) {
       >
         <div className="total  flex items-center justify-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
           <span>total C02:</span>
-          {emissionData.co2e.toFixed(2)}
-          {emissionData.co2e_unit}
+          {emissionData ? emissionData.co2e.toFixed(2) : ""}
+          {emissionData ? emissionData.co2e_unit : ""}
         </div>
         <div className="individual  flex items-center justify-center gap-2 h-8 md:h-12 bg-[#F8F4EA]   rounded-lg p-2 md:p-3 ">
           <span>C02/passengers: </span>
 
-          {(
-            emissionData.co2e /
-            (totalPassengers / legs.length)
-          ).toFixed(2)}
-          {emissionData.co2e_unit}
+          {emissionData
+            ? (
+                emissionData.co2e /
+                (totalPassengers / legs.length)
+              ).toFixed(2)
+            : ""}
+          {emissionData ? emissionData.co2e_unit : ""}
         </div>
       </div>
 
-      {emissionData.legs.length === 1 && flightExist ? (
+      {emissionData &&
+      emissionData.legs.length === 1 &&
+      flightExist ? (
         <div
           className={`recap w-[80%] lg:w-[30%] bg-[#F8F4EA] rounded-lg flex flex-col justify-center items-center capitalize relative 
              lg:h-[200px] duration-500  `}
@@ -91,12 +92,12 @@ function Output({}) {
 
       <div
         className={`multi-flight overflow-visible  w-[80%]  flex flex-col gap-4  md:gap-6 ${
-          emissionData.legs.length > 1
+          emissionData && emissionData.legs.length > 1
             ? "lg:w-[50%]"
             : "lg:w-0"
         } `}
       >
-        {emissionData.legs.length > 1
+        {emissionData && emissionData.legs.length > 1
           ? emissionData.legs.map((item, i) => (
               <div
                 key={i}
@@ -159,6 +160,10 @@ function Output({}) {
       <button
         className="bg-black/50 rounded py-1 px-3 text-white capitalize"
         onClick={() => {
+          // setOutputOpen(false);
+          // setTimeout(() => {
+          //   setEmissionData();
+          // }, 3000);
           navigate("/");
         }}
       >

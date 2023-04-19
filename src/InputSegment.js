@@ -35,7 +35,7 @@ function InputSegment({
     <div
       className={`segment capitalize duration-700 p-2 h-22 md:h-28 w-full flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
     >
-      <div className="add-icon cursor-pointer text-[20px] text-black z-10 absolute top-[10px] right-[10px]">
+      <div className=" cursor-pointer text-[20px] text-black  absolute top-[10px] right-[10px]">
         <MdDeleteOutline
           className="text-white text-[1.6rem] md:text-[2.4rem]"
           onClick={() => {
@@ -110,7 +110,8 @@ function InputSegment({
             value={passengers}
             onChange={handleChangePassengers}
             className="w-[20%] lg:w-[25%] text-center text-black"
-            type="number"
+            type="text"
+            inputMode="numeric"
           />
         </div>
       </div>
