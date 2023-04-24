@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import { Delete } from "@styled-icons/fluentui-system-filled";
 
 function InputSegment({
+  airportList,
   setDepartureCode,
   setArrivalCode,
   setPassengers,
@@ -58,11 +59,12 @@ function InputSegment({
             id="from-airports"
           />
           <datalist id="airport-list">
-            {airportCodes.map((airport, index) => (
+            {airportList}
+            {/* {airportCodes.map((airport, index) => (
               <option key={index} value={airport.code}>
                 {airport.name}-{airport.code}
               </option>
-            ))}
+            ))} */}
           </datalist>
         </From>
         {/* TO */}
@@ -76,11 +78,12 @@ function InputSegment({
             id="to-airports"
           />
           <datalist id="airport-list">
-            {airportCodes.map((airport, index) => (
+            {airportList}
+            {/* {airportCodes.map((airport, index) => (
               <option key={index} value={airport.code}>
-                {airport.name}-{airport.city}-{airport.code}
+                {airport.name}-{airport.code}
               </option>
-            ))}
+            ))} */}
           </datalist>
         </To>
       </FromTo>
@@ -115,6 +118,59 @@ function InputSegment({
         </Passenger>
       </PassClassContainer>
     </Segment>
+
+    // <Segment>
+    //   <DeleteContainer
+    //     whileHover={{ scale: 1.2 }}
+    //     whileTap={{ scale: 0.9 }}
+    //   >
+    //     <DeleteIcon
+    //       onClick={() => {
+    //         removeSegment(i);
+    //         console.log("remove input range");
+    //       }}
+    //     />
+    //   </DeleteContainer>
+
+    //   <FromTo>
+    //     {/* FROM */}
+    //     <From>
+    //       <label htmlFor="from-airports"> from:</label>
+
+    //       <InputRange
+    //         onChange={handleChangeFrom}
+    //         value={departureCode}
+    //         list="airport-list"
+    //         id="from-airports"
+    //       />
+    //       {/* <datalist id="airport-list">
+    //         {airportCodes.map((airport, index) => (
+    //           <option key={index} value={airport.code}>
+    //             {airport.name}-{airport.code}
+    //           </option>
+    //         ))}
+    //       </datalist> */}
+    //     </From>
+    //     {/* TO */}
+    //     <To>
+    //       <label htmlFor="to-airports"> to:</label>
+
+    //       <InputRange
+    //         onChange={handleChangeTo}
+    //         value={arrivalCode}
+    //         list="airport-list"
+    //         id="to-airports"
+    //       />
+    //       {/* <datalist id="airport-list">
+    //         {airportCodes.map((airport, index) => (
+    //           <option key={index} value={airport.code}>
+    //             {airport.name}-{airport.city}-{airport.code}
+    //           </option>
+    //         ))}
+    //       </datalist> */}
+    //     </To>
+    //   </FromTo>
+    // </Segment>
   );
 }
 const Segment = styled.li`

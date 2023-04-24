@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import airplane from "./assets/airplane.png";
 import { useGlobalContext } from "./context/context";
 import styled, { css, keyframes } from "styled-components";
+
 function LandingPanel() {
   const { landingPanelOpen, setLandingPanelOpen } =
     useGlobalContext();
+
   useEffect(() => {
     setTimeout(() => {
       setLandingPanelOpen(false);

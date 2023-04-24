@@ -15,7 +15,7 @@ function Output({}) {
   } = useGlobalContext();
 
   const navigate = useNavigate();
-  const OutputContainer = styled.div``;
+
   return (
     <OutputContainer
       as={motion.div}
@@ -163,5 +163,5 @@ function Output({}) {
     </OutputContainer>
   );
 }
-
+const OutputContainer = styled.div``;
 export default Output;

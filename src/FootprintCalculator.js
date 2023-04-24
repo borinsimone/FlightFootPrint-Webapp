@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { fetch } from "./fetch";
 import styled, { css } from "styled-components";
+import airportCodes from "./source/airports.json";
 
 function FootprintCalculator() {
   const {
@@ -123,17 +124,17 @@ function FootprintCalculator() {
   const addSegment = () => {
     if (legList.length < 6) {
       setArrayLength(arrayLength + 1);
-      setTimeout(() => {
-        setLegList([
-          ...legList,
-          {
-            departureCode,
-            arrivalCode,
-            passengers,
-            cabinClass,
-          },
-        ]);
-      }, 700);
+      // setTimeout(() => {
+      setLegList([
+        ...legList,
+        {
+          departureCode,
+          arrivalCode,
+          passengers,
+          cabinClass,
+        },
+      ]);
+      // }, 500);
     }
   };
   const removeSegment = (i) => {
@@ -147,9 +148,21 @@ function FootprintCalculator() {
     }
   };
 
+  // const airportList = airportCodes.map((airport, index) => (
+  //   <option key={index} value={airport.code}>
+  //     {airport.name}-{airport.code}
+  //   </option>
+  // ));
+  const [airportList, setAirportList] = useState(
+    airportCodes.map((airport, index) => (
+      <option key={index} value={airport.code}>
+        {airport.name}-{airport.code}
+      </option>
+    ))
+  );
+
   // const [parent] = useAutoAnimate({
-  //   duration: 700,
-  //   easing: "ease-in-out",
+  //   duration: 300,
   // });
   const [parent] = useAutoAnimate();
 
@@ -194,22 +207,13 @@ function FootprintCalculator() {
       {/* INPUT */}
       <InputContainer
         ref={parent}
-        // multipleInput={legList.length > 1 ? true : false}
-        containerHeight={arrayLength * 7 + "rem"}
-        // className={` mt-4
-        // w-[90%]   flex flex-col justify-evenly duration-500
-        // lg:p-2 lg:grid lg:place-items-center lg:gap-4
-        //  ${legList.length > 1 ? "h-[80%] " : "h-44"}
-        // ${
-        //   legList.length > 1
-        //     ? "lg:grid-cols-2 lg:h-[70%] "
-        //     : "lg:grid-cols-1 lg:w-[70%]"
-        // } overflow-visible
-        // `}
+        containerHeight={arrayLength * 10 + "rem"}
       >
         {legList.map((segment, i) => (
+          // <h1>ciao</h1>
           <InputSegment
             key={i}
+            airportList={airportList}
             setDepartureCode={setDepartureCode}
             setArrivalCode={setArrivalCode}
             setPassengers={setPassengers}
@@ -250,7 +254,7 @@ function FootprintCalculator() {
         </Button>
         <Button
           onClick={() => {
-            console.log(arrayLength);
+            console.log(airportList);
           }}
         >
           test
@@ -371,14 +375,14 @@ const CloseError = styled.button`
 `;
 const InputContainer = styled.ul`
   overflow: visible;
-  transition: height 400ms ease-in-out;
+  transition: 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
   height: ${(props) => props.containerHeight};
-
+  max-height: 70%;
   /* @media (min-width: 1024px) {
     padding: 0.5rem;
     display: grid;
