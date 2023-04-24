@@ -2,6 +2,7 @@ import React from "react";
 import { useGlobalContext } from "./context/context";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import styled from "styled-components";
 
 function Output({}) {
   const {
@@ -14,20 +15,12 @@ function Output({}) {
   } = useGlobalContext();
 
   const navigate = useNavigate();
-  const output = {
-    hidden: {
-      opacity: 0,
-    },
-  };
-
+  const OutputContainer = styled.div``;
   return (
-    <motion.div
+    <OutputContainer
+      as={motion.div}
       className={`output absolute text-black capitalize  bg-[#E1D7C6]/20 backdrop-blur-md
-        h-full w-full   flex flex-col items-center justify-center gap-4 md:gap-6 duration-500
-
-      
-
-      `}
+        h-full w-full   flex flex-col items-center justify-center gap-4 md:gap-6 duration-500`}
       initial={{
         opacity: 0,
         transition: { duration: 0.5 },
@@ -92,7 +85,7 @@ function Output({}) {
       <div
         className={`multi-flight overflow-visible  w-[80%]  flex flex-col gap-4  md:gap-6 ${
           emissionData.legs.length > 1
-            ? "lg:w-[50%]"
+            ? "lg:w-[60%]"
             : "lg:w-0"
         } `}
       >
@@ -156,15 +149,18 @@ function Output({}) {
             ))
           : ""}
       </div>
-      <button
+
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         className="bg-black/50 rounded py-1 px-3 text-white capitalize"
         onClick={() => {
           navigate("/");
         }}
       >
         close
-      </button>
-    </motion.div>
+      </motion.button>
+    </OutputContainer>
   );
 }
 

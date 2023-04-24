@@ -1,6 +1,7 @@
 import React from "react";
 import airportCodes from "./source/airports.json";
-import { MdDeleteOutline } from "react-icons/md";
+import styled, { css } from "styled-components";
+import { Delete } from "@styled-icons/fluentui-system-filled";
 
 function InputSegment({
   setDepartureCode,
@@ -31,28 +32,28 @@ function InputSegment({
     setPassengers(event.target.value);
     legList[i].passengers = event.target.value;
   };
+
   return (
-    <div
-      className={`segment capitalize duration-700 p-2 h-22 md:h-28 w-full flex flex-col gap-2 items-center justify-center bg-black/60 text-white  relative rounded-lg`}
-    >
-      <div className=" cursor-pointer text-[20px] text-black  absolute top-[10px] right-[10px]">
-        <MdDeleteOutline
-          className="text-white text-[1.6rem] md:text-[2.4rem]"
+    <Segment>
+      <DeleteContainer
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <DeleteIcon
           onClick={() => {
             removeSegment(i);
             console.log("remove input range");
           }}
         />
-      </div>
-      <div className="from-to flex w-full">
+      </DeleteContainer>
+      <FromTo>
         {/* FROM */}
-        <div className="from relative flex justify-start w-[50%] gap-2 lg:gap-4">
+        <From>
           <label htmlFor="from-airports"> from:</label>
 
-          <input
+          <InputRange
             onChange={handleChangeFrom}
             value={departureCode}
-            className="w-[35%] lg:w-[40%] text-center text-black capitalize"
             list="airport-list"
             id="from-airports"
           />
@@ -63,15 +64,14 @@ function InputSegment({
               </option>
             ))}
           </datalist>
-        </div>
+        </From>
         {/* TO */}
-        <div className="to relative flex w-[50%] gap-2 lg:gap-4">
+        <To>
           <label htmlFor="to-airports"> to:</label>
 
-          <input
+          <InputRange
             onChange={handleChangeTo}
             value={arrivalCode}
-            className="w-[35%] lg:w-[40%] text-center text-black capitalize"
             list="airport-list"
             id="to-airports"
           />
@@ -82,18 +82,17 @@ function InputSegment({
               </option>
             ))}
           </datalist>
-        </div>
-      </div>
+        </To>
+      </FromTo>
 
       {/* PASSENGERS & CLASS */}
 
-      <div className="passengers-class w-full flex">
-        <div className="class w-[50%] flex gap-2 lg:gap-4">
+      <PassClassContainer>
+        <Class>
           <label htmlFor="cabin-class">class:</label>
 
-          <input
+          <InputRange
             onChange={handleChangeClass}
-            className="text-black  capitalize w-[60%] lg:w-[45%] text-center"
             list="class-list"
             id="cabin-class"
             value={cabinClass}
@@ -103,20 +102,102 @@ function InputSegment({
             <option value="business"></option>
             <option value="first"></option>
           </datalist>
-        </div>
-        <div className="passengers w-[50%] flex gap-2 lg:gap-4">
+        </Class>
+        <Passenger>
           <span>passengers:</span>
-          <input
+          <InputRange
+            short
             value={passengers}
             onChange={handleChangePassengers}
-            className="w-[20%] lg:w-[25%] text-center text-black"
             type="text"
             inputMode="numeric"
           />
-        </div>
-      </div>
-    </div>
+        </Passenger>
+      </PassClassContainer>
+    </Segment>
   );
 }
+const Segment = styled.li`
+  text-transform: capitalize;
+  transition: 700ms;
+  padding: 0.5rem;
+  height: 5rem;
+  widows: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  position: relative;
+  border-radius: 0.5rem;
+`;
+const DeleteContainer = styled.div`
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  top: 15%;
+
+  right: 10px;
+  z-index: 20;
+  @media (min-width: 768px) {
+    font-size: 30px;
+  }
+`;
+const DeleteIcon = styled(Delete)`
+  height: 30px;
+  color: #fff;
+  @media (min-width: 768px) {
+    height: 40px;
+  }
+`;
+const FromTo = styled.div`
+  display: flex;
+  width: 100%;
+`;
+const PassClassContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
+const Range = styled.div`
+  position: relative;
+  display: flex;
+
+  width: 50%;
+  gap: 0.5rem;
+  @media (min-width: 1024px) {
+    gap: 1rem;
+  }
+`;
+const Class = styled(Range)`
+  justify-content: start;
+  @media (min-width: 1024px) {
+    width: 40%;
+  }
+`;
+const Passenger = styled(Range)``;
+const From = styled(Range)`
+  justify-content: start;
+  @media (min-width: 1024px) {
+    width: 40%;
+  }
+`;
+const To = styled(Range)``;
+const InputRange = styled.input`
+  width: 35%;
+  text-align: center;
+  color: black;
+  text-transform: capitalize;
+  @media (min-width: 1024px) {
+    width: 30%;
+  }
+
+  ${(props) =>
+    props.short &&
+    css`
+      width: 20%;
+    `};
+`;
 
 export default InputSegment;

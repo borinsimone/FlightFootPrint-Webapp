@@ -14,10 +14,6 @@
 *::-webkit-scrollbar {
   display: none;
 }
-.App {
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-}
 
 .dropdown-open {
   transition: opacity 400ms, height 400ms;
@@ -88,18 +84,6 @@
   box-shadow: 8px 8px 15px -3px #000000;
 }
 
-.fetch-button:hover {
-  box-shadow: inset 0px 0px 10px 5px
-    rgba(255, 255, 255, 0.607);
-}
-@media (min-width: 1020px) {
-  button {
-    padding: 10px 20px !important;
-  }
-}
-button:hover {
-  background-color: #000000e9;
-}
 .output {
   // background: rgb(2, 0, 36);
   background: radial-gradient(

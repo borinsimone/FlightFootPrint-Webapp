@@ -17,11 +17,6 @@
   display: none;
 }
 
-.App {
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-}
-
 .dropdown-open {
   -webkit-transition: opacity 400ms, height 400ms;
   transition: opacity 400ms, height 400ms;
@@ -130,21 +125,6 @@
 .individual-flight {
   -webkit-box-shadow: 8px 8px 15px -3px #000000;
   box-shadow: 8px 8px 15px -3px #000000;
-}
-
-.fetch-button:hover {
-  -webkit-box-shadow: inset 0px 0px 10px 5px rgba(255, 255, 255, 0.607);
-          box-shadow: inset 0px 0px 10px 5px rgba(255, 255, 255, 0.607);
-}
-
-@media (min-width: 1020px) {
-  button {
-    padding: 10px 20px !important;
-  }
-}
-
-button:hover {
-  background-color: #000000e9;
 }
 
 .output {

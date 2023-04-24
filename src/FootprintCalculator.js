@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InputSegment from "./InputSegment";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import loading from "./assets/loading.gif";
 import { useGlobalContext } from "./context/context";
 import { useNavigate } from "react-router-dom";
-
 import { motion } from "framer-motion";
 import { fetch } from "./fetch";
-import airplane from "./assets/airplane.png";
+import styled, { css } from "styled-components";
+
 function FootprintCalculator() {
   const {
     setEmissionData,
     legs,
     setLegs,
-
     setIsDropdownOpen,
     departureCode,
     setDepartureCode,
@@ -26,8 +25,6 @@ function FootprintCalculator() {
     setCabinClass,
     legList,
     setLegList,
-    landingPanelOpen,
-    setLandingPanelOpen,
   } = useGlobalContext();
 
   const [error, setError] = useState(false);
@@ -61,51 +58,25 @@ function FootprintCalculator() {
   }, [departureCode, arrivalCode, passengers, cabinClass]);
 
   const getEmission = async () => {
-    let response = await fetch(legs);
-    if (response.status === 200) {
-      console.log(response);
-      setEmissionData(response.data);
+    if (
+      legs[0].from === "" ||
+      legs[0].to === "" ||
+      legs[0].class === ""
+    ) {
+      let response = "empty";
       setIsLoading(false);
-      navigate("/output", { replace: true });
-    }
-
-    if (response === "empty") {
       setError(true);
-      setIsLoading(false);
+      return response;
+    } else {
+      let response = await fetch(legs);
+      if (response.status === 200) {
+        console.log(response);
+        setEmissionData(response.data);
+        setIsLoading(false);
+        navigate("/output", { replace: true });
+      }
     }
   };
-
-  // const getEmission = async () => {
-  //   setFlightExist(false);
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await axios.post(
-  //       "https://beta3.api.climatiq.io/travel/flights",
-  //       {
-  //         legs,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${process.env.REACT_APP_CLIMATIQ_KEY}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     console.log(response);
-  //     if (response.data.co2e === 0) {
-  //       setError(true);
-  //     } else {
-  //       setEmissionData(response.data);
-  //       navigate("/output");
-  //     }
-  //     setFlightExist(true);
-  //   } catch (error) {
-  //     console.error(error);
-  //     setError(true);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   // GoCLimate api fetch
 
@@ -148,22 +119,26 @@ function FootprintCalculator() {
   // };
 
   // SEGMENT MANAGEMENT
-
+  const [arrayLength, setArrayLength] = useState(1);
   const addSegment = () => {
     if (legList.length < 6) {
-      setLegList([
-        ...legList,
-        {
-          departureCode,
-          arrivalCode,
-          passengers,
-          cabinClass,
-        },
-      ]);
+      setArrayLength(arrayLength + 1);
+      setTimeout(() => {
+        setLegList([
+          ...legList,
+          {
+            departureCode,
+            arrivalCode,
+            passengers,
+            cabinClass,
+          },
+        ]);
+      }, 500);
     }
   };
   const removeSegment = (i) => {
     if (legList.length > 1) {
+      setArrayLength(arrayLength - 1);
       setLegList((prevlegList) => {
         const newlegList = [...prevlegList];
         newlegList.splice(i, 1);
@@ -172,7 +147,11 @@ function FootprintCalculator() {
     }
   };
 
-  const [parent] = useAutoAnimate();
+  const [parent] = useAutoAnimate({
+    duration: 700,
+    easing: "ease-in-out",
+  });
+  // const [parent] = useAutoAnimate();
 
   // UI STATE
 
@@ -181,8 +160,8 @@ function FootprintCalculator() {
   }, [legList]);
 
   return (
-    <motion.div
-      className="relative bg-[#motion.] h-full w-full  flex flex-col justify-center items-center"
+    <Container
+      as={motion.div}
       initial={{
         opacity: 0,
         transition: { duration: 0.5 },
@@ -194,50 +173,39 @@ function FootprintCalculator() {
       exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
       {/* LOADING */}
-      <div
-        className={`loading-panel absolute ${
-          isLoading ? "z-50 opacity-1" : "-z-10 opacity-0"
-        }  backdrop-blur-sm absolute h-full w-full flex items-center justify-center duration-300`}
-      >
-        <img
-          src={loading}
-          className="loading  h-20  aspect-square "
-          alt="Loading..."
-        />
-      </div>
+      <LoadingPanel visible={isLoading}>
+        <LoadingImg src={loading} alt="Loading..." />
+      </LoadingPanel>
+
       {/* ERROR */}
-      <div
-        className={`error duration-300 ${
-          error ? "opacity-1 z-10" : "opacity-0 -z-10"
-        } absolute bg-slate-600 h-[100px] md:h-[200px] w-[90%] lg:w-[60%] top-[calc(50%-50px)] md:top-[calc(50%-100px)] flex items-center justify-center  rounded-xl p-2 md:p-3`}
-      >
-        <div className="border-4 border-[red]/70 h-full w-full flex flex-col items-center justify-center gap-3 md:gap-7 rounded-xl py-3">
-          <div className="error-text text-white">
-            Please fill all range
-          </div>
-          <button
-            className="close-error bg-white/60 px-4 rounded-lg text-white "
+      <ErrorPanel visible={error}>
+        <Border>
+          <ErrorText>Please fill all range</ErrorText>
+          <CloseError
             onClick={() => {
               setError(false);
             }}
           >
             close
-          </button>
-        </div>
-      </div>
+          </CloseError>
+        </Border>
+      </ErrorPanel>
+
       {/* INPUT */}
-      <div
+      <InputContainer
         ref={parent}
-        className={` mt-4 
-         ${legList.length > 1 ? "h-[80%] " : "h-44"}
-              w-[90%]   flex flex-col justify-evenly duration-500
-              lg:p-2 lg:grid lg:place-items-center lg:gap-4 
-        ${
-          legList.length > 1
-            ? "lg:grid-cols-2 lg:h-[70%] "
-            : "lg:grid-cols-1 lg:w-[70%]"
-        } overflow-visible
-        `}
+        // multipleInput={legList.length > 1 ? true : false}
+        containerHeight={arrayLength * 7 + "rem"}
+        // className={` mt-4
+        // w-[90%]   flex flex-col justify-evenly duration-500
+        // lg:p-2 lg:grid lg:place-items-center lg:gap-4
+        //  ${legList.length > 1 ? "h-[80%] " : "h-44"}
+        // ${
+        //   legList.length > 1
+        //     ? "lg:grid-cols-2 lg:h-[70%] "
+        //     : "lg:grid-cols-1 lg:w-[70%]"
+        // } overflow-visible
+        // `}
       >
         {legList.map((segment, i) => (
           <InputSegment
@@ -255,18 +223,16 @@ function FootprintCalculator() {
             i={i}
           />
         ))}
-      </div>
+      </InputContainer>
       {/* BUTTONS */}
-      <div
-        className={` overflow-visible flex items-center justify-between h-[10%]  w-[90%] lg:w-[50%]`}
-      >
-        <motion.button
-          whileHover={{ scale: 1.1 }}
+      <ButtonContainer>
+        <Button
+          as={motion.button}
           whileTap={{ scale: 0.9 }}
-          className="reset-btn  bg-black/50 rounded py-1 px-3 text-white capitalize relative lg:top-0 "
           onClick={() => {
             console.log("reset list");
             setLegs([]);
+            setArrayLength(1);
             setPassengers(1);
             setTotalPassengers(passengers);
             setLegList([
@@ -281,11 +247,17 @@ function FootprintCalculator() {
           }}
         >
           reset
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
+        </Button>
+        <Button
+          onClick={() => {
+            console.log(arrayLength);
+          }}
+        >
+          test
+        </Button>
+        <Button
+          as={motion.button}
           whileTap={{ scale: 0.9 }}
-          className=" bg-black/50 px-3 py-1  rounded text-white capitalize"
           onClick={() => {
             console.log("starting fetch");
             setIsLoading(true);
@@ -293,12 +265,11 @@ function FootprintCalculator() {
           }}
         >
           calculate
-        </motion.button>
+        </Button>
 
-        <motion.button
-          whileHover={{ scale: 1.1 }}
+        <Button
+          as={motion.button}
           whileTap={{ scale: 0.9 }}
-          className="plus-btn  bg-black/50 rounded py-1 px-3 text-white capitalize relative  lg:top-0"
           onClick={() => {
             console.log("add input range");
             addSegment();
@@ -306,10 +277,151 @@ function FootprintCalculator() {
           }}
         >
           add
-        </motion.button>
-      </div>
-    </motion.div>
+        </Button>
+      </ButtonContainer>
+    </Container>
   );
 }
+const Container = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const LoadingPanel = styled.div`
+  position: absolute;
+  opacity: 0;
+  z-index: -10;
+  ${(props) =>
+    props.visible &&
+    css`
+      opacity: 1;
+      z-index: 50;
+    `};
+  backdrop-filter: blur(4px);
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-content: center;
+  transition: 300ms;
+`;
+
+const LoadingImg = styled.img`
+  height: 5rem;
+  aspect-ratio: square;
+`;
+const ErrorPanel = styled.div`
+  transition: 300ms;
+  opacity: 0;
+  z-index: -10;
+  ${(props) =>
+    props.visible &&
+    css`
+      opacity: 1;
+      z-index: 50;
+    `};
+  backdrop-filter: blur(4px);
+  height: 100px;
+  width: 90%;
+  position: absolute;
+  top: calc(50%-50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(71 85 105);
+  border-radius: 0.75rem;
+  @media (min-width: 768px) {
+    height: 200px;
+    width: 90%;
+    top: calc(50%-100px);
+    padding: 0.75rem;
+  }
+`;
+const Border = styled.div`
+  border: 4px solid red;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0;
+  @media (min-width: 768px) {
+    gap: 1.75rem;
+  }
+`;
+const ErrorText = styled.div`
+  color: #fff;
+`;
+const CloseError = styled.button`
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  transition: 400ms;
+  &:hover {
+    background-color: #000;
+  }
+`;
+const InputContainer = styled.ul`
+  overflow: visible;
+  transition: height 400ms;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  background-color: red;
+  height: ${(props) => props.containerHeight};
+
+  /* @media (min-width: 1024px) {
+    padding: 0.5rem;
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    width: 70%;
+    ${(props) =>
+    props.multipleInput &&
+    css`
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      height: 70%;
+    `};
+  } */
+`;
+const ButtonContainer = styled.div`
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10%;
+  width: 90%;
+  @media (min-width: 1024px) {
+    width: 50%;
+  }
+`;
+const Button = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  color: #fff;
+  text-transform: capitalize;
+  transition: 200ms ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+    background-color: #000000e9;
+  }
+
+  @media (min-width: 1020px) {
+    padding: 10px 20px;
+  }
+`;
 
 export default FootprintCalculator;
+/* className= overflow-visible flex items-center justify-between h-[10%]  w-[90%] lg:w-[50%]`} */

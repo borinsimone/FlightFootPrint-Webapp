@@ -3,12 +3,9 @@ import FootprintCalculator from "./FootprintCalculator";
 import Output from "./Output";
 import "./index.css";
 import LandingPanel from "./LandingPanel";
-import {
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import styled from "styled-components";
 function App() {
   useEffect(() => {
     function updateVh() {
@@ -22,12 +19,10 @@ function App() {
     console.log("resize");
   }, []);
 
-  const location = useLocation();
   let n = 8;
   return (
-    <div className="App w-screen bg-[#E1D7C6]  md:text-2xl flex flex-col items-center justify-center overflow-hidden ">
+    <AppContaneir>
       <LandingPanel />
-
       <AnimatePresence mode="wait" onExitComplete={true}>
         <Routes>
           <Route
@@ -37,8 +32,23 @@ function App() {
           <Route path="/output" element={<Output />} />
         </Routes>
       </AnimatePresence>
-    </div>
+    </AppContaneir>
   );
 }
+
+const AppContaneir = styled.div`
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  background-color: #e1d7c6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
 
 export default App;

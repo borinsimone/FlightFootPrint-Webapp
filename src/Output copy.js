@@ -13,13 +13,7 @@ function Output({}) {
     totalPassengers,
   } = useGlobalContext();
 
-  // const [outputOpen, setOutputOpen] = useState(false);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (emissionData) {
-  //     setOutputOpen(true);
-  //   }
-  // }, [emissionData]);
 
   return (
     <motion.div
