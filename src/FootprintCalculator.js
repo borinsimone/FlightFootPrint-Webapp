@@ -133,7 +133,7 @@ function FootprintCalculator() {
             cabinClass,
           },
         ]);
-      }, 500);
+      }, 700);
     }
   };
   const removeSegment = (i) => {
@@ -147,11 +147,11 @@ function FootprintCalculator() {
     }
   };
 
-  const [parent] = useAutoAnimate({
-    duration: 700,
-    easing: "ease-in-out",
-  });
-  // const [parent] = useAutoAnimate();
+  // const [parent] = useAutoAnimate({
+  //   duration: 700,
+  //   easing: "ease-in-out",
+  // });
+  const [parent] = useAutoAnimate();
 
   // UI STATE
 
@@ -371,13 +371,12 @@ const CloseError = styled.button`
 `;
 const InputContainer = styled.ul`
   overflow: visible;
-  transition: height 400ms;
+  transition: height 400ms ease-in-out;
   width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  background-color: red;
   height: ${(props) => props.containerHeight};
 
   /* @media (min-width: 1024px) {

@@ -17,7 +17,7 @@ function LandingPanel() {
       <LandingQuote>
         Viaggiare con consapevolezza
       </LandingQuote>
-      <Airplane src={airplane} />
+      <Airplane src={airplane} alt="airplane" />
     </LandingContainer>
   );
 }
