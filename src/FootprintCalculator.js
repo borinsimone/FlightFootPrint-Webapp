@@ -26,6 +26,8 @@ function FootprintCalculator() {
     setCabinClass,
     legList,
     setLegList,
+    arrayLength,
+    setArrayLength,
   } = useGlobalContext();
 
   const [error, setError] = useState(false);
@@ -120,7 +122,7 @@ function FootprintCalculator() {
   // };
 
   // SEGMENT MANAGEMENT
-  const [arrayLength, setArrayLength] = useState(1);
+
   const addSegment = () => {
     if (legList.length < 6) {
       setArrayLength(arrayLength + 1);
@@ -252,13 +254,13 @@ function FootprintCalculator() {
         >
           reset
         </Button>
-        <Button
+        {/* <Button
           onClick={() => {
             console.log(airportList);
           }}
         >
           test
-        </Button>
+        </Button> */}
         <Button
           as={motion.button}
           whileTap={{ scale: 0.9 }}
@@ -286,6 +288,7 @@ function FootprintCalculator() {
     </Container>
   );
 }
+
 const Container = styled.div`
   position: relative;
   height: 100%;
@@ -383,7 +386,7 @@ const InputContainer = styled.ul`
   gap: 1rem;
   height: ${(props) => props.containerHeight};
   max-height: 70%;
-  /* @media (min-width: 1024px) {
+  @media (min-width: 1024px) {
     padding: 0.5rem;
     display: grid;
     place-items: center;
@@ -391,12 +394,12 @@ const InputContainer = styled.ul`
     grid-template-columns: repeat(1, minmax(0, 1fr));
     width: 70%;
     ${(props) =>
-    props.multipleInput &&
-    css`
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      height: 70%;
-    `};
-  } */
+      props.multipleInput &&
+      css`
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        height: 70%;
+      `};
+  }
 `;
 const ButtonContainer = styled.div`
   overflow: visible;
@@ -427,4 +430,3 @@ const Button = styled.div`
 `;
 
 export default FootprintCalculator;
-/* className= overflow-visible flex items-center justify-between h-[10%]  w-[90%] lg:w-[50%]`} */

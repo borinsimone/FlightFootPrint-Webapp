@@ -19,6 +19,7 @@ const ContextProvider = ({ children }) => {
     legList.map(() => false)
   );
   const [airportList, setAirportList] = useState();
+  const [arrayLength, setArrayLength] = useState(1);
   return (
     <GlobalContext.Provider
       value={{
@@ -42,6 +43,8 @@ const ContextProvider = ({ children }) => {
         setLegList,
         landingPanelOpen,
         setLandingPanelOpen,
+        arrayLength,
+        setArrayLength,
       }}
     >
       {children}
