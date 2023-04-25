@@ -6,7 +6,6 @@ import styled, { css, keyframes } from "styled-components";
 function LandingPanel() {
   const { landingPanelOpen, setLandingPanelOpen } =
     useGlobalContext();
-
   useEffect(() => {
     setTimeout(() => {
       setLandingPanelOpen(false);

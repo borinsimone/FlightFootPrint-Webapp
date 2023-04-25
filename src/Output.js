@@ -140,13 +140,13 @@ function Output({}) {
       >
         close
       </Button>
-      <Button
+      {/* <Button
         onClick={() => {
           console.log(emissionData.legs.length);
         }}
       >
         test
-      </Button>
+      </Button> */}
     </OutputContainer>
   );
 }

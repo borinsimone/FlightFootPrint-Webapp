@@ -150,11 +150,6 @@ function FootprintCalculator() {
     }
   };
 
-  // const airportList = airportCodes.map((airport, index) => (
-  //   <option key={index} value={airport.code}>
-  //     {airport.name}-{airport.code}
-  //   </option>
-  // ));
   const [airportList, setAirportList] = useState(
     airportCodes.map((airport, index) => (
       <option key={index} value={airport.code}>
@@ -163,9 +158,6 @@ function FootprintCalculator() {
     ))
   );
 
-  // const [parent] = useAutoAnimate({
-  //   duration: 300,
-  // });
   const [parent] = useAutoAnimate();
 
   // UI STATE
@@ -210,6 +202,7 @@ function FootprintCalculator() {
       <InputContainer
         ref={parent}
         containerHeight={arrayLength * 10 + "rem"}
+        multipleInput={legList.length > 1}
       >
         {legList.map((segment, i) => (
           // <h1>ciao</h1>
@@ -393,11 +386,13 @@ const InputContainer = styled.ul`
     gap: 1rem;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     width: 70%;
+
     ${(props) =>
       props.multipleInput &&
       css`
         grid-template-columns: repeat(2, minmax(0, 1fr));
         height: 70%;
+        /* background-color: #fff; */
       `};
   }
 `;

@@ -18,7 +18,6 @@ const ContextProvider = ({ children }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(
     legList.map(() => false)
   );
-  const [airportList, setAirportList] = useState();
   const [arrayLength, setArrayLength] = useState(1);
   return (
     <GlobalContext.Provider

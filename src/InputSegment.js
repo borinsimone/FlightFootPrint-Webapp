@@ -1,5 +1,4 @@
 import React from "react";
-import airportCodes from "./source/airports.json";
 import styled, { css } from "styled-components";
 import { Delete } from "@styled-icons/fluentui-system-filled";
 
@@ -60,11 +59,6 @@ function InputSegment({
           />
           <datalist id="airport-list">
             {airportList}
-            {/* {airportCodes.map((airport, index) => (
-              <option key={index} value={airport.code}>
-                {airport.name}-{airport.code}
-              </option>
-            ))} */}
           </datalist>
         </From>
         {/* TO */}
@@ -79,11 +73,6 @@ function InputSegment({
           />
           <datalist id="airport-list">
             {airportList}
-            {/* {airportCodes.map((airport, index) => (
-              <option key={index} value={airport.code}>
-                {airport.name}-{airport.code}
-              </option>
-            ))} */}
           </datalist>
         </To>
       </FromTo>
