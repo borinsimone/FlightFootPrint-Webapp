@@ -30,25 +30,30 @@ function Output({}) {
     >
       <GeneralData
         multipleOutput={
-          emissionData.legs.length > 1 ? true : false
+          emissionData && emissionData.legs.length > 1
         }
       >
         <Total>
           <span>total C02:</span>
-          {emissionData.co2e.toFixed(2)}
-          {emissionData.co2e_unit}
+          {emissionData && emissionData.co2e.toFixed(2)}
+          {emissionData && emissionData.co2e_unit}
         </Total>
         <Individual>
           <span>C02/passengers: </span>
 
-          {(
-            emissionData.co2e /
-            (totalPassengers / legs.length)
-          ).toFixed(2)}
-          {emissionData.co2e_unit}
+          {emissionData &&
+            (
+              emissionData.co2e /
+              (totalPassengers / legs.length)
+            ).toFixed(2)}
+          {emissionData && emissionData.co2e_unit}
         </Individual>
       </GeneralData>
-      <Recap multipleOutput={emissionData.legs.length > 1}>
+      <Recap
+        multipleOutput={
+          emissionData && emissionData.legs.length > 1
+        }
+      >
         <div className="recap-logo">recap:</div>
         <div className="recap-container">
           <div className="recap-from-to">
@@ -66,7 +71,9 @@ function Output({}) {
       </Recap>
 
       <MultiFlight
-        multipleOutput={emissionData.legs.length > 1}
+        multipleOutput={
+          emissionData && emissionData.legs.length > 1
+        }
       >
         {emissionData &&
           emissionData.legs.map((item, i) => (
@@ -135,7 +142,7 @@ function Output({}) {
       </Button>
       <Button
         onClick={() => {
-          console.log();
+          console.log(emissionData.legs.length);
         }}
       >
         test
@@ -150,6 +157,7 @@ const Button = styled.div`
   color: #fff;
   text-transform: capitalize;
   transition: 200ms ease-in-out;
+  cursor: pointer;
   &:hover {
     transform: scale(1.1);
     background-color: #000000e9;
