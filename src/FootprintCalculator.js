@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputSegment from "./InputSegment";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
+
 import loading from "./assets/loading.gif";
 import { useGlobalContext } from "./context/context";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { fetch } from "./fetch";
 import styled, { css } from "styled-components";
 import airportCodes from "./source/airports.json";
+import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
 
 function FootprintCalculator() {
   const {
@@ -93,58 +94,51 @@ function FootprintCalculator() {
   //   );
   // };
 
-  // const goClimateFetch = async () => {
-  //   const params = {
-  //     segments: [...climateSegment],
-  //     cabin_class: `economy`,
-  //     passengers: `${totalPassengers}`,
-  //   };
-
-  //   try {
-  //     const response = await axios.get(
-  //       "https://api.goclimate.com/v1/flight_footprint",
+  // SEGMENT MANAGEMENT
+  // const addSegment = () => {
+  //   if (legList.length < 6) {
+  //     setArrayLength(arrayLength + 1);
+  //     setLegList([
+  //       ...legList,
   //       {
-  //         params,
-  //         auth: {
-  //           username: ${process.env.REACT_APP_GOCLIMATE_KEY},
-  //           password: "",
-  //         },
-  //       }
-  //     );
-  //     console.log(response);
-  //     setEmissionData(response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //     setError(true);
-  //   } finally {
-  //     setIsLoading(false);
+  //         departureCode,
+  //         arrivalCode,
+  //         passengers,
+  //         cabinClass,
+  //       },
+  //     ]);
   //   }
   // };
-
-  // SEGMENT MANAGEMENT
-
-  const addSegment = () => {
+  const addSegment = async () => {
+    setArrayLength(arrayLength + 1);
     if (legList.length < 6) {
-      setArrayLength(arrayLength + 1);
-      // setTimeout(() => {
-      setLegList([
-        ...legList,
-        {
-          departureCode,
-          arrivalCode,
-          passengers,
-          cabinClass,
-        },
+      const newSegment = await new Promise((resolve) =>
+        setTimeout(
+          () =>
+            resolve({
+              departureCode,
+              arrivalCode,
+              passengers,
+              cabinClass,
+            }),
+          300
+        )
+      );
+
+      setLegList((prevlegList) => [
+        ...prevlegList,
+        newSegment,
       ]);
-      // }, 500);
     }
   };
   const removeSegment = (i) => {
     if (legList.length > 1) {
       setArrayLength(arrayLength - 1);
+
       setLegList((prevlegList) => {
         const newlegList = [...prevlegList];
         newlegList.splice(i, 1);
+
         return newlegList;
       });
     }
@@ -157,8 +151,6 @@ function FootprintCalculator() {
       </option>
     ))
   );
-
-  const [parent] = useAutoAnimate();
 
   // UI STATE
 
@@ -193,19 +185,17 @@ function FootprintCalculator() {
               setError(false);
             }}
           >
-            close
+            <CloseIcon />
           </CloseError>
         </Border>
       </ErrorPanel>
 
       {/* INPUT */}
       <InputContainer
-        ref={parent}
-        containerHeight={arrayLength * 10 + "rem"}
+        containerHeight={arrayLength * 7 + "rem"}
         multipleInput={legList.length > 1}
       >
         {legList.map((segment, i) => (
-          // <h1>ciao</h1>
           <InputSegment
             key={i}
             airportList={airportList}
@@ -228,6 +218,12 @@ function FootprintCalculator() {
         <Button
           as={motion.button}
           whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 10,
+          }}
           onClick={() => {
             console.log("reset list");
             setLegs([]);
@@ -247,16 +243,16 @@ function FootprintCalculator() {
         >
           reset
         </Button>
-        {/* <Button
-          onClick={() => {
-            console.log(airportList);
-          }}
-        >
-          test
-        </Button> */}
+
         <Button
           as={motion.button}
           whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 10,
+          }}
           onClick={() => {
             console.log("starting fetch");
             setIsLoading(true);
@@ -269,6 +265,13 @@ function FootprintCalculator() {
         <Button
           as={motion.button}
           whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 10,
+            duration: 2,
+          }}
           onClick={() => {
             console.log("add input range");
             addSegment();
@@ -334,39 +337,70 @@ const ErrorPanel = styled.div`
   justify-content: center;
   background-color: rgb(71 85 105);
   border-radius: 0.75rem;
+  padding: 0.3rem 0.3rem;
+  overflow: visible;
+
   @media (min-width: 768px) {
-    height: 200px;
-    width: 90%;
-    top: calc(50%-100px);
-    padding: 0.75rem;
+    padding: 0.5rem 0.5rem;
+    height: 120px;
+    width: 80%;
+    top: calc(50%-90px);
+  }
+  @media (min-width: 1024px) {
+    padding: 0.5rem 0.5rem;
+    width: 70%;
   }
 `;
 const Border = styled.div`
-  border: 4px solid red;
+  border: 2px solid red;
+  position: relative;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: space-evenly;
+  gap: 0.5rem;
   border-radius: 0.75rem;
-  padding: 0.75rem 0;
+  overflow: visible;
+
   @media (min-width: 768px) {
-    gap: 1.75rem;
+    /* gap: 1.75rem; */
   }
 `;
 const ErrorText = styled.div`
   color: #fff;
+  overflow: visible;
 `;
 const CloseError = styled.button`
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 0 1rem;
-  border-radius: 0.5rem;
+  position: absolute;
+  top: -0.7rem;
+  right: -0.7rem;
+  height: 1.4rem;
+  aspect-ratio: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  /* padding: 0.3rem 0.5rem; */
   color: #fff;
-  transition: 400ms;
+  /* text-transform: capitalize; */
+  transition: 200ms ease-in-out;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   &:hover {
-    background-color: #000;
+    transform: scale(1.1);
+    background-color: #000000e9;
+  }
+`;
+
+const CloseIcon = styled(CloseOutline)`
+  height: 30px;
+  font-size: 30px;
+  color: #fff;
+  @media (min-width: 768px) {
+    height: 40px;
   }
 `;
 const InputContainer = styled.ul`
@@ -378,7 +412,7 @@ const InputContainer = styled.ul`
   justify-content: center;
   gap: 1rem;
   height: ${(props) => props.containerHeight};
-  max-height: 70%;
+  max-height: 80%;
   @media (min-width: 1024px) {
     padding: 0.5rem;
     display: grid;
@@ -392,7 +426,6 @@ const InputContainer = styled.ul`
       css`
         grid-template-columns: repeat(2, minmax(0, 1fr));
         height: 70%;
-        /* background-color: #fff; */
       `};
   }
 `;
@@ -410,14 +443,11 @@ const ButtonContainer = styled.div`
 const Button = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0.25rem;
-  padding: 0.25rem;
+  padding: 0.4rem 0.5rem;
   color: #fff;
   text-transform: capitalize;
-  transition: 200ms ease-in-out;
-  &:hover {
-    transform: scale(1.1);
-    background-color: #000000e9;
-  }
+  cursor: pointer;
+  border: none;
 
   @media (min-width: 1020px) {
     padding: 10px 20px;

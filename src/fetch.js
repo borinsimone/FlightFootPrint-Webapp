@@ -21,3 +21,30 @@ export const fetch = (legs) => {
     return response;
   }
 };
+// const goClimateFetch = async () => {
+//   const params = {
+//     segments: [...climateSegment],
+//     cabin_class: `economy`,
+//     passengers: `${totalPassengers}`,
+//   };
+
+//   try {
+//     const response = await axios.get(
+//       "https://api.goclimate.com/v1/flight_footprint",
+//       {
+//         params,
+//         auth: {
+//           username: ${process.env.REACT_APP_GOCLIMATE_KEY},
+//           password: "",
+//         },
+//       }
+//     );
+//     console.log(response);
+//     setEmissionData(response.data);
+//   } catch (error) {
+//     console.error(error);
+//     setError(true);
+//   } finally {
+//     setIsLoading(false);
+//   }
+// };

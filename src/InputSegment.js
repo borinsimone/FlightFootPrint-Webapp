@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { Delete } from "@styled-icons/fluentui-system-filled";
+import { AnimatePresence, motion } from "framer-motion";
 
 function InputSegment({
   airportList,
@@ -34,139 +35,95 @@ function InputSegment({
   };
 
   return (
-    <Segment>
-      <DeleteContainer
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.9 }}
+    <AnimatePresence mode="wait" onExitComplete={true}>
+      <Segment
+        as={motion.div}
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: "5rem" }}
+        exit={{ opacity: 0, height: 0 }}
+        transition={{ ease: "easeInOut", duration: 0.3 }}
       >
-        <DeleteIcon
-          onClick={() => {
-            removeSegment(i);
-            console.log("remove input range");
-          }}
-        />
-      </DeleteContainer>
-      <FromTo>
-        {/* FROM */}
-        <From>
-          <label htmlFor="from-airports"> from:</label>
-
-          <InputRange
-            onChange={handleChangeFrom}
-            value={departureCode}
-            list="airport-list"
-            id="from-airports"
+        <DeleteContainer
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <DeleteIcon
+            onClick={() => {
+              removeSegment(i);
+              console.log("remove input range");
+            }}
           />
-          <datalist id="airport-list">
-            {airportList}
-          </datalist>
-        </From>
-        {/* TO */}
-        <To>
-          <label htmlFor="to-airports"> to:</label>
+        </DeleteContainer>
+        <FromTo>
+          {/* FROM */}
+          <From>
+            <label htmlFor="from-airports"> from:</label>
 
-          <InputRange
-            onChange={handleChangeTo}
-            value={arrivalCode}
-            list="airport-list"
-            id="to-airports"
-          />
-          <datalist id="airport-list">
-            {airportList}
-          </datalist>
-        </To>
-      </FromTo>
+            <FromInput
+              onChange={handleChangeFrom}
+              value={departureCode}
+              list="airport-list"
+              id="from-airports"
+            />
+            <datalist id="airport-list">
+              {airportList}
+            </datalist>
+          </From>
+          {/* TO */}
+          <To>
+            <label htmlFor="to-airports"> to:</label>
 
-      {/* PASSENGERS & CLASS */}
+            <ToInput
+              onChange={handleChangeTo}
+              value={arrivalCode}
+              list="airport-list"
+              id="to-airports"
+            />
+            <datalist id="airport-list">
+              {airportList}
+            </datalist>
+          </To>
+        </FromTo>
 
-      <PassClassContainer>
-        <Class>
-          <label htmlFor="cabin-class">class:</label>
+        {/* PASSENGERS & CLASS */}
 
-          <InputRange
-            onChange={handleChangeClass}
-            list="class-list"
-            id="cabin-class"
-            value={cabinClass}
-          />
-          <datalist id="class-list">
-            <option value="economy"></option>
-            <option value="business"></option>
-            <option value="first"></option>
-          </datalist>
-        </Class>
-        <Passenger>
-          <span>passengers:</span>
-          <InputRange
-            short
-            value={passengers}
-            onChange={handleChangePassengers}
-            type="text"
-            inputMode="numeric"
-          />
-        </Passenger>
-      </PassClassContainer>
-    </Segment>
+        <PassClassContainer>
+          <Class>
+            <label htmlFor="cabin-class">class:</label>
 
-    // <Segment>
-    //   <DeleteContainer
-    //     whileHover={{ scale: 1.2 }}
-    //     whileTap={{ scale: 0.9 }}
-    //   >
-    //     <DeleteIcon
-    //       onClick={() => {
-    //         removeSegment(i);
-    //         console.log("remove input range");
-    //       }}
-    //     />
-    //   </DeleteContainer>
-
-    //   <FromTo>
-    //     {/* FROM */}
-    //     <From>
-    //       <label htmlFor="from-airports"> from:</label>
-
-    //       <InputRange
-    //         onChange={handleChangeFrom}
-    //         value={departureCode}
-    //         list="airport-list"
-    //         id="from-airports"
-    //       />
-    //       {/* <datalist id="airport-list">
-    //         {airportCodes.map((airport, index) => (
-    //           <option key={index} value={airport.code}>
-    //             {airport.name}-{airport.code}
-    //           </option>
-    //         ))}
-    //       </datalist> */}
-    //     </From>
-    //     {/* TO */}
-    //     <To>
-    //       <label htmlFor="to-airports"> to:</label>
-
-    //       <InputRange
-    //         onChange={handleChangeTo}
-    //         value={arrivalCode}
-    //         list="airport-list"
-    //         id="to-airports"
-    //       />
-    //       {/* <datalist id="airport-list">
-    //         {airportCodes.map((airport, index) => (
-    //           <option key={index} value={airport.code}>
-    //             {airport.name}-{airport.city}-{airport.code}
-    //           </option>
-    //         ))}
-    //       </datalist> */}
-    //     </To>
-    //   </FromTo>
-    // </Segment>
+            <ClassInput
+              onChange={handleChangeClass}
+              list="class-list"
+              id="cabin-class"
+              value={cabinClass}
+            />
+            <datalist id="class-list">
+              <option value="economy"></option>
+              <option value="business"></option>
+              <option value="first"></option>
+            </datalist>
+          </Class>
+          <Passenger>
+            <span>passengers:</span>
+            <PassegnerInput
+              short
+              value={passengers}
+              onChange={handleChangePassengers}
+              type="text"
+              inputMode="numeric"
+            />
+          </Passenger>
+        </PassClassContainer>
+      </Segment>
+    </AnimatePresence>
   );
 }
 const Segment = styled.li`
   text-transform: capitalize;
   transition: 700ms;
   padding: 0.5rem;
-  height: 5rem;
+  /* height: 0px; */
+  /* height: 5rem; */
   widows: 100%;
   display: flex;
   flex-direction: column;
@@ -221,21 +178,27 @@ const Class = styled(Range)`
     width: 40%;
   }
 `;
-const Passenger = styled(Range)``;
+const Passenger = styled(Range)`
+  margin-left: 10px;
+`;
 const From = styled(Range)`
   justify-content: start;
   @media (min-width: 1024px) {
-    width: 40%;
+    width: 50%;
   }
 `;
 const To = styled(Range)``;
 const InputRange = styled.input`
+  all: unset;
   width: 35%;
   text-align: center;
   color: black;
   text-transform: capitalize;
+  background-color: #fff;
+  border-radius: 0.15rem;
+
   @media (min-width: 1024px) {
-    width: 30%;
+    width: 40%;
   }
 
   ${(props) =>
@@ -243,6 +206,24 @@ const InputRange = styled.input`
     css`
       width: 20%;
     `};
+`;
+const FromInput = styled(InputRange)`
+  max-width: 90px;
+`;
+const ToInput = styled(InputRange)`
+  max-width: 90px;
+`;
+const ClassInput = styled(InputRange)`
+  width: 65%;
+  max-width: 160px;
+  @media (min-width: 1024px) {
+    width: 50%;
+  }
+`;
+const PassegnerInput = styled(InputRange)`
+  @media (min-width: 1024px) {
+    width: 20%;
+  }
 `;
 
 export default InputSegment;

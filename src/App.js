@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import FootprintCalculator from "./FootprintCalculator";
 import Output from "./Output";
-import "./index.css";
 import LandingPanel from "./LandingPanel";
 import { Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
+import GlobalStyle from "./globalStyles";
 function App() {
   useEffect(() => {
     function updateVh() {
@@ -22,6 +22,7 @@ function App() {
   let n = 8;
   return (
     <AppContaneir>
+      <GlobalStyle />
       <LandingPanel />
       <AnimatePresence mode="wait" onExitComplete={true}>
         <Routes>

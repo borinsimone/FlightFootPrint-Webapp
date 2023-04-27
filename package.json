@@ -1,10 +1,9 @@
 {
   "homepage": "https://borinsimone.github.io/flightfootprint-webapp/",
-  "name": "flightfootprint-webapp-1",
+  "name": "flightfootprint-webapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@formkit/auto-animate": "^1.0.0-beta.6",
     "framer-motion": "^10.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
