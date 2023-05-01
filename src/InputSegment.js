@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { Delete } from "@styled-icons/fluentui-system-filled";
 import { AnimatePresence, motion } from "framer-motion";
+import { useGlobalContext } from "./context/context";
 
 function InputSegment({
   airportList,
@@ -17,6 +18,7 @@ function InputSegment({
   removeSegment,
   i,
 }) {
+  const { show, setShow } = useGlobalContext();
   const handleChangeFrom = (event) => {
     setDepartureCode(event.target.value);
     legList[i].departureCode = event.target.value;
@@ -35,95 +37,108 @@ function InputSegment({
   };
 
   return (
-    <AnimatePresence mode="wait" onExitComplete={true}>
-      <Segment
-        as={motion.div}
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: "5rem" }}
-        exit={{ opacity: 0, height: 0 }}
-        transition={{ ease: "easeInOut", duration: 0.3 }}
-      >
-        <DeleteContainer
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
+    <AnimatePresence>
+      {show[i] && (
+        <Segment
+          as={motion.li}
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "5rem" }}
+          exit={{ opacity: 0 }}
+          transition={{ ease: "easeInOut", duration: 0.3 }}
         >
-          <DeleteIcon
-            onClick={() => {
-              removeSegment(i);
-              console.log("remove input range");
+          <DeleteContainer
+            as={motion.div}
+            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 10,
+              duration: 2,
             }}
-          />
-        </DeleteContainer>
-        <FromTo>
-          {/* FROM */}
-          <From>
-            <label htmlFor="from-airports"> from:</label>
-
-            <FromInput
-              onChange={handleChangeFrom}
-              value={departureCode}
-              list="airport-list"
-              id="from-airports"
+          >
+            <DeleteIcon
+              onClick={() => {
+                setShow((prevState) =>
+                  prevState.map((item, index) =>
+                    index === i ? !item : true
+                  )
+                );
+                setTimeout(() => {
+                  removeSegment(i);
+                  console.log("remove input range");
+                }, 100);
+              }}
             />
-            <datalist id="airport-list">
-              {airportList}
-            </datalist>
-          </From>
-          {/* TO */}
-          <To>
-            <label htmlFor="to-airports"> to:</label>
+          </DeleteContainer>
+          {show[i]}
+          <FromTo>
+            {/* FROM */}
+            <From>
+              <label htmlFor="from-airports"> from:</label>
 
-            <ToInput
-              onChange={handleChangeTo}
-              value={arrivalCode}
-              list="airport-list"
-              id="to-airports"
-            />
-            <datalist id="airport-list">
-              {airportList}
-            </datalist>
-          </To>
-        </FromTo>
+              <FromInput
+                onChange={handleChangeFrom}
+                value={departureCode}
+                list="airport-list"
+                id="from-airports"
+              />
+              <datalist id="airport-list">
+                {airportList}
+              </datalist>
+            </From>
+            {/* TO */}
+            <To>
+              <label htmlFor="to-airports"> to:</label>
 
-        {/* PASSENGERS & CLASS */}
+              <ToInput
+                onChange={handleChangeTo}
+                value={arrivalCode}
+                list="airport-list"
+                id="to-airports"
+              />
+              <datalist id="airport-list">
+                {airportList}
+              </datalist>
+            </To>
+          </FromTo>
+          {/* PASSENGERS & CLASS */}
+          <PassClassContainer>
+            <Class>
+              <label htmlFor="cabin-class">class:</label>
 
-        <PassClassContainer>
-          <Class>
-            <label htmlFor="cabin-class">class:</label>
-
-            <ClassInput
-              onChange={handleChangeClass}
-              list="class-list"
-              id="cabin-class"
-              value={cabinClass}
-            />
-            <datalist id="class-list">
-              <option value="economy"></option>
-              <option value="business"></option>
-              <option value="first"></option>
-            </datalist>
-          </Class>
-          <Passenger>
-            <span>passengers:</span>
-            <PassegnerInput
-              short
-              value={passengers}
-              onChange={handleChangePassengers}
-              type="text"
-              inputMode="numeric"
-            />
-          </Passenger>
-        </PassClassContainer>
-      </Segment>
+              <ClassInput
+                onChange={handleChangeClass}
+                list="class-list"
+                id="cabin-class"
+                value={cabinClass}
+              />
+              <datalist id="class-list">
+                <option value="economy"></option>
+                <option value="business"></option>
+                <option value="first"></option>
+              </datalist>
+            </Class>
+            <Passenger>
+              <span>passengers:</span>
+              <PassegnerInput
+                short
+                value={passengers}
+                onChange={handleChangePassengers}
+                type="text"
+                inputMode="numeric"
+              />
+            </Passenger>
+          </PassClassContainer>
+        </Segment>
+      )}
     </AnimatePresence>
   );
 }
 const Segment = styled.li`
   text-transform: capitalize;
-  transition: 700ms;
-  padding: 0.5rem;
-  /* height: 0px; */
-  /* height: 5rem; */
+  padding: 0 0.5rem;
+
   widows: 100%;
   display: flex;
   flex-direction: column;
@@ -134,6 +149,8 @@ const Segment = styled.li`
   color: #fff;
   position: relative;
   border-radius: 0.5rem;
+  -webkit-box-shadow: 8px 8px 15px -3px #000000;
+  box-shadow: 8px 8px 15px -3px #000000;
 `;
 const DeleteContainer = styled.div`
   cursor: pointer;
@@ -190,7 +207,7 @@ const From = styled(Range)`
 const To = styled(Range)``;
 const InputRange = styled.input`
   all: unset;
-  width: 35%;
+  width: 40%;
   text-align: center;
   color: black;
   text-transform: capitalize;

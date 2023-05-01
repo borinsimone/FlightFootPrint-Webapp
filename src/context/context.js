@@ -1,4 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const GlobalContext = React.createContext();
 
@@ -19,6 +23,12 @@ const ContextProvider = ({ children }) => {
     legList.map(() => false)
   );
   const [arrayLength, setArrayLength] = useState(1);
+  const [show, setShow] = useState(legList.map(() => true));
+
+  useEffect(() => {
+    setShow(legList.map(() => true));
+  }, [legList]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -44,6 +54,8 @@ const ContextProvider = ({ children }) => {
         setLandingPanelOpen,
         arrayLength,
         setArrayLength,
+        show,
+        setShow,
       }}
     >
       {children}

@@ -192,7 +192,7 @@ function FootprintCalculator() {
 
       {/* INPUT */}
       <InputContainer
-        containerHeight={arrayLength * 7 + "rem"}
+        containerHeight={arrayLength * 6 + "rem"}
         multipleInput={legList.length > 1}
       >
         {legList.map((segment, i) => (
@@ -448,7 +448,8 @@ const Button = styled.div`
   text-transform: capitalize;
   cursor: pointer;
   border: none;
-
+  -webkit-box-shadow: 8px 8px 15px -3px #000000;
+  box-shadow: 8px 8px 15px -3px #000000;
   @media (min-width: 1020px) {
     padding: 10px 20px;
   }
