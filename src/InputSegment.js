@@ -138,7 +138,6 @@ function InputSegment({
 }
 const Segment = styled.li`
   text-transform: capitalize;
-  /* padding: 0 0.5rem; */
 
   widows: 100%;
   display: flex;

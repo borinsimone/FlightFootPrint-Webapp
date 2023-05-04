@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import InputSegment from "./InputSegment";
-
 import loading from "./assets/loading.gif";
 import { useGlobalContext } from "./context/context";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,6 @@ import { fetch } from "./fetch";
 import styled, { css } from "styled-components";
 import airportCodes from "./source/airports.json";
 import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
-import { Show } from "styled-icons/boxicons-regular";
 
 function FootprintCalculator() {
   const {
@@ -154,17 +152,7 @@ function FootprintCalculator() {
         }, 200);
       });
       setArrayLength(arrayLength - 1);
-      // setShow((current) =>
-      //   current.filter((item) => item !== false)
-      // );
-      // const newLeg = [
-      //   ...legList.slice(0, i),
-      //   ...legList.slice(i + 1),
-      // ];
-      // setLegList([
-      //   ...legList.slice(0, i),
-      //   ...legList.slice(i + 1),
-      // ]);
+
       setShow((current) =>
         current.filter((item) => item !== false)
       );
@@ -224,7 +212,6 @@ function FootprintCalculator() {
 
       {/* INPUT */}
       <InputContainer
-        // containerHeight={arrayLength * 6 + "rem"}
         containerHeight={arrayLength * 11 + "vh"}
         multipleInput={legList.length > 1}
       >
@@ -397,10 +384,6 @@ const Border = styled.div`
   gap: 0.5rem;
   border-radius: 0.75rem;
   overflow: visible;
-
-  @media (min-width: 768px) {
-    /* gap: 1.75rem; */
-  }
 `;
 const ErrorText = styled.div`
   color: #fff;
@@ -414,9 +397,7 @@ const CloseError = styled.button`
   aspect-ratio: 1;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 50%;
-  /* padding: 0.3rem 0.5rem; */
   color: #fff;
-  /* text-transform: capitalize; */
   transition: 200ms ease-in-out;
   border: none;
   display: flex;
