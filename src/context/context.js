@@ -25,10 +25,6 @@ const ContextProvider = ({ children }) => {
   const [arrayLength, setArrayLength] = useState(1);
   const [show, setShow] = useState(legList.map(() => true));
 
-  useEffect(() => {
-    setShow(legList.map(() => true));
-  }, [legList]);
-
   return (
     <GlobalContext.Provider
       value={{

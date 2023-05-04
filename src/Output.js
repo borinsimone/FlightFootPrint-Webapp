@@ -134,6 +134,13 @@ function Output({}) {
       <Button
         as={motion.button}
         whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.1 }}
+        transition={{
+          type: "spring",
+          stiffness: 400,
+          damping: 10,
+          duration: 2,
+        }}
         onClick={() => {
           navigate("/");
         }}
@@ -146,16 +153,13 @@ function Output({}) {
 const Button = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0.25rem;
-  padding: 0.25rem;
+  padding: 0.4rem 0.5rem;
   color: #fff;
   text-transform: capitalize;
-  transition: 200ms ease-in-out;
   cursor: pointer;
-  &:hover {
-    transform: scale(1.1);
-    background-color: #000000e9;
-  }
-
+  border: none;
+  -webkit-box-shadow: 8px 8px 15px -3px #000000;
+  box-shadow: 8px 8px 15px -3px #000000;
   @media (min-width: 1020px) {
     padding: 10px 20px;
   }
@@ -192,8 +196,6 @@ const GeneralData = styled.div`
   transition: 500;
   overflow: visible;
   @media (min-width: 1024px) {
-    width: 30%;
-
     ${(props) =>
       props.multipleOutput &&
       css`
@@ -271,6 +273,7 @@ const MultiFlight = styled.div`
 `;
 
 const IndividualFlight = styled.div`
+  padding: 0.5rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;

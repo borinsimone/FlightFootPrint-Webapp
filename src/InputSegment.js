@@ -37,14 +37,23 @@ function InputSegment({
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {show[i] && (
         <Segment
+          key={i}
           as={motion.li}
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "5rem" }}
-          exit={{ opacity: 0 }}
-          transition={{ ease: "easeInOut", duration: 0.3 }}
+          initial={{ opacity: 0, height: 0, padding: 0 }}
+          animate={{
+            opacity: 1,
+            height: "9vh",
+            transition: {
+              duration: 0.3,
+            },
+          }}
+          exit={{
+            opacity: 0,
+            transition: { opacity: 2 },
+          }}
         >
           <DeleteContainer
             as={motion.div}
@@ -59,15 +68,7 @@ function InputSegment({
           >
             <DeleteIcon
               onClick={() => {
-                setShow((prevState) =>
-                  prevState.map((item, index) =>
-                    index === i ? !item : true
-                  )
-                );
-                setTimeout(() => {
-                  removeSegment(i);
-                  console.log("remove input range");
-                }, 100);
+                removeSegment(i);
               }}
             />
           </DeleteContainer>
@@ -137,7 +138,7 @@ function InputSegment({
 }
 const Segment = styled.li`
   text-transform: capitalize;
-  padding: 0 0.5rem;
+  /* padding: 0 0.5rem; */
 
   widows: 100%;
   display: flex;
@@ -173,11 +174,11 @@ const DeleteIcon = styled(Delete)`
 `;
 const FromTo = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
 `;
 const PassClassContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
 `;
 const Range = styled.div`
   position: relative;
@@ -192,11 +193,13 @@ const Range = styled.div`
 const Class = styled(Range)`
   justify-content: start;
   @media (min-width: 1024px) {
-    width: 40%;
+    width: 50%;
   }
 `;
 const Passenger = styled(Range)`
-  margin-left: 10px;
+  @media (min-width: 1024px) {
+    width: 50%;
+  }
 `;
 const From = styled(Range)`
   justify-content: start;

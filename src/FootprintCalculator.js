@@ -9,6 +9,7 @@ import { fetch } from "./fetch";
 import styled, { css } from "styled-components";
 import airportCodes from "./source/airports.json";
 import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
+import { Show } from "styled-icons/boxicons-regular";
 
 function FootprintCalculator() {
   const {
@@ -29,6 +30,8 @@ function FootprintCalculator() {
     setLegList,
     arrayLength,
     setArrayLength,
+    show,
+    setShow,
   } = useGlobalContext();
 
   const [error, setError] = useState(false);
@@ -110,8 +113,8 @@ function FootprintCalculator() {
   //   }
   // };
   const addSegment = async () => {
-    setArrayLength(arrayLength + 1);
     if (legList.length < 6) {
+      setArrayLength(arrayLength + 1);
       const newSegment = await new Promise((resolve) =>
         setTimeout(
           () =>
@@ -124,21 +127,50 @@ function FootprintCalculator() {
           300
         )
       );
-
       setLegList((prevlegList) => [
         ...prevlegList,
         newSegment,
       ]);
+
+      setShow((prevShow) => {
+        const newShow = [...prevShow];
+        newShow.push(true);
+        return newShow;
+      });
     }
   };
-  const removeSegment = (i) => {
+  const removeSegment = async (i) => {
     if (legList.length > 1) {
-      setArrayLength(arrayLength - 1);
+      setShow(
+        show.map((item, index) =>
+          index === i ? !item : true
+        )
+      );
 
+      console.log("remove input range");
+      const index = await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ i });
+        }, 200);
+      });
+      setArrayLength(arrayLength - 1);
+      // setShow((current) =>
+      //   current.filter((item) => item !== false)
+      // );
+      // const newLeg = [
+      //   ...legList.slice(0, i),
+      //   ...legList.slice(i + 1),
+      // ];
+      // setLegList([
+      //   ...legList.slice(0, i),
+      //   ...legList.slice(i + 1),
+      // ]);
+      setShow((current) =>
+        current.filter((item) => item !== false)
+      );
       setLegList((prevlegList) => {
         const newlegList = [...prevlegList];
-        newlegList.splice(i, 1);
-
+        newlegList.splice(index, 1);
         return newlegList;
       });
     }
@@ -192,7 +224,8 @@ function FootprintCalculator() {
 
       {/* INPUT */}
       <InputContainer
-        containerHeight={arrayLength * 6 + "rem"}
+        // containerHeight={arrayLength * 6 + "rem"}
+        containerHeight={arrayLength * 11 + "vh"}
         multipleInput={legList.length > 1}
       >
         {legList.map((segment, i) => (
@@ -230,6 +263,7 @@ function FootprintCalculator() {
             setArrayLength(1);
             setPassengers(1);
             setTotalPassengers(passengers);
+            setShow([true]);
             setLegList([
               {
                 departureCode,
@@ -405,26 +439,23 @@ const CloseIcon = styled(CloseOutline)`
 `;
 const InputContainer = styled.ul`
   overflow: visible;
-  transition: 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
-  height: ${(props) => props.containerHeight};
-  max-height: 80%;
+  gap: 2vh;
+  @media (max-width: 1024px) {
+    height: ${(props) => props.containerHeight};
+    max-height: 80%;
+  }
   @media (min-width: 1024px) {
     padding: 0.5rem;
-    display: grid;
-    place-items: center;
-    gap: 1rem;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    width: 70%;
-
+    width: 50%;
+    height: 20%;
+    transition: height 500ms ease-in-out;
     ${(props) =>
       props.multipleInput &&
       css`
-        grid-template-columns: repeat(2, minmax(0, 1fr));
         height: 70%;
       `};
   }
@@ -451,7 +482,7 @@ const Button = styled.div`
   -webkit-box-shadow: 8px 8px 15px -3px #000000;
   box-shadow: 8px 8px 15px -3px #000000;
   @media (min-width: 1020px) {
-    padding: 10px 20px;
+    padding: 0.5rem 1rem;
   }
 `;
 
