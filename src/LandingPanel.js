@@ -8,7 +8,7 @@ function LandingPanel() {
     useGlobalContext();
   useEffect(() => {
     setTimeout(() => {
-      setLandingPanelOpen(false);
+      // setLandingPanelOpen(false);
     }, 3000);
   });
 
@@ -76,6 +76,7 @@ const LandingQuote = styled.span`
   font-size: 1.5rem;
   font-weight: 700;
   transition: 500ms;
+  text-align: center;
   opacity: 0;
   overflow: visible;
   animation-name: ${fade_in};
