@@ -8,7 +8,7 @@ function LandingPanel() {
     useGlobalContext();
   useEffect(() => {
     setTimeout(() => {
-      // setLandingPanelOpen(false);
+      setLandingPanelOpen(false);
     }, 3000);
   });
 
@@ -74,7 +74,7 @@ const LandingTitle = styled.span`
 `;
 const LandingQuote = styled.span`
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   transition: 500ms;
   text-align: center;
   opacity: 0;
