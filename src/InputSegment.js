@@ -233,7 +233,7 @@ const ToInput = styled(InputRange)`
   max-width: 90px;
 `;
 const ClassInput = styled(InputRange)`
-  width: 65%;
+  width: 60%;
   max-width: 160px;
   @media (min-width: 1024px) {
     width: 50%;

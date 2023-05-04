@@ -245,7 +245,7 @@ function FootprintCalculator() {
             damping: 10,
           }}
           onClick={() => {
-            console.log("reset list");
+            console.clear();
             setLegs([]);
             setArrayLength(1);
             setPassengers(1);
