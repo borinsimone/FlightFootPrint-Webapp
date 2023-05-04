@@ -20,13 +20,11 @@ function Output({}) {
       as={motion.div}
       initial={{
         opacity: 0,
-        transition: { duration: 0.5 },
       }}
       animate={{
         opacity: 1,
-        transition: { duration: 0.5 },
       }}
-      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      exit={{ opacity: 0 }}
     >
       <GeneralData
         multipleOutput={
@@ -196,11 +194,7 @@ const GeneralData = styled.div`
   transition: 500;
   overflow: visible;
   @media (min-width: 1024px) {
-    ${(props) =>
-      props.multipleOutput &&
-      css`
-        width: 60%;
-      `};
+    width: 30%;
   }
 `;
 const Data = styled.div`
@@ -263,7 +257,7 @@ const MultiFlight = styled.div`
     gap: 1.5rem;
   }
   @media (min-width: 1024px) {
-    width: 60%;
+    width: 30%;
   }
   ${(props) =>
     props.multipleOutput &&
@@ -293,12 +287,15 @@ const IndividualFlight = styled.div`
 `;
 const Dropdown = styled.div`
   display: flex;
+  align-items: center;
   overflow: hidden;
   padding: 0 0.5rem;
   height: 0;
-  transition: opacity 100ms, height 300ms 50ms;
+
+  transition: opacity 200ms, height 300ms 50ms;
   opacity: ${(props) =>
     props.isDropdownOpen[props.index] ? 1 : 0};
+
   height: ${(props) =>
     props.isDropdownOpen[props.index] ? "4em" : 0};
   .left {
