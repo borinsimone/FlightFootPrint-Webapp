@@ -7,4 +7,9 @@ npm install styled-components
 npm install styled-icons
 npm install framer-motion
 
-API docs and API key: https://www.climatiq.io/docs
+API docs: https://www.climatiq.io/docs
+
+API key: https://www.climatiq.io
+
+For the API key you have to set an .env file: REACT_APP_CLIMATIQ_KEY=YOUR_KEY
+then call it with the process.env.KEY_NAME path
